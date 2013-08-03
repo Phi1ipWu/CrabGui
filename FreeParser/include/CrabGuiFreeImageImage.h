@@ -45,10 +45,8 @@ namespace CrabGui
 		/// 获得插值颜色
 		virtual Color	getBlurColor(float x, float y);
 
-
-	public:
-		/// 另存为PNG，接口可能会废
-		virtual Bool	saveAsPNG(PCStr pszFileName, Rect* pRectClip, Point* pResize);
+		/// 图片另存为
+		virtual Bool	saveToFile(ImageFileFormat eFileFormat, PCStr pszFileName, Rect* pRectClip, Point* pResize);
 
 
 	private:

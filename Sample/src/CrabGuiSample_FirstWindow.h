@@ -34,12 +34,11 @@ namespace CrabGui
 
 	private:
 
-		void	_testCreate();
-
+		void	_testManualCreate();
 		void	_testRBTree();
-
 		void	_testConvertPNG();
 		void	_testClipPNG();
+		void	_testBatchConvertJPG();
 
 
 	private:

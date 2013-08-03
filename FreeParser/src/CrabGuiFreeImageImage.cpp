@@ -192,11 +192,28 @@ namespace CrabGui
     }
 
 
-	// 另存为PNG，接口可能会废
-	Bool FreeImageImage::saveAsPNG(PCStr pszFileName, Rect* pRectClip, Point* pResize)
+	/// 图片另存为
+	Bool FreeImageImage::saveToFile(ImageFileFormat eFileFormat, PCStr pszFileName, Rect* pRectClip, Point* pResize)
 	{
 		if (!isLoaded())
 			return False;
+
+		FREE_IMAGE_FORMAT eFreeImageFormat;
+		switch (eFileFormat)
+		{
+		case IFF_BMP:
+			eFreeImageFormat = FIF_BMP;
+			break;
+		case IFF_PNG:
+			eFreeImageFormat = FIF_PNG;
+			break;
+		case IFF_JPG:
+			eFreeImageFormat = FIF_JPEG;
+			break;
+
+		default:
+			return False;
+		}
 
 		Point ptLeftTop(0, 0);
 		Point ptSize(_ptImgSize.x, _ptImgSize.y);
@@ -237,7 +254,7 @@ namespace CrabGui
 			pFIBitmap = FreeImage_Rescale(pFIBitmap, pResize->x, pResize->y, FILTER_BILINEAR);
 		}
 
-		Bool isSuccess = FreeImage_Save(FIF_PNG, pFIBitmap, pszFileName, PNG_DEFAULT);
+		Bool isSuccess = FreeImage_Save(eFreeImageFormat, pFIBitmap, pszFileName, PNG_DEFAULT);
 		FreeImage_Unload(pFIBitmap);
 
 		return isSuccess;

@@ -6,6 +6,19 @@
 namespace CrabGui
 {
 
+	// 图片文件类型
+	enum ImageFileFormat
+	{
+		IFF_Unknown = 0,
+
+		IFF_BMP,
+		IFF_PNG,
+		IFF_JPG,
+
+		IFF_Size,
+	};
+
+
 	/// 图片
 	class CRABGUIEXPORT Image
 	{
@@ -40,11 +53,8 @@ namespace CrabGui
 		/// 获得插值颜色
 		virtual Color	getBlurColor(float x, float y) = 0;
 
-
-	public:
-
-		/// 另存为PNG，接口可能会废
-		virtual Bool	saveAsPNG(PCStr pszFileName, Rect* pRectClip, Point* pResize) = 0;
+		/// 图片另存为
+		virtual Bool	saveToFile(ImageFileFormat eFileFormat, PCStr pszFileName, Rect* pRectClip, Point* pResize) = 0;
 
 	};
 }

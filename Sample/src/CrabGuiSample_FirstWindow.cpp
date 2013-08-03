@@ -21,15 +21,21 @@ namespace CrabGui
 	// 逻辑层的初始化
 	Bool SampleFirstWindow::init()
 	{
-		//_testCreate();
-		//return True;
+		// test code
+		{
+			//_testManualCreate();
+			//return True;
 
-		//_testRBTree();
-		//return True;
+			//_testRBTree();
+			//return True;
 
-		_testConvertPNG();
-		//_testClipPNG();
-		//return True;
+			//_testClipPNG();
+			//return True;
+
+			//_testConvertPNG();
+			_testBatchConvertJPG();
+		}
+
 
 		Bool isUseCanvas = True;
 
@@ -127,7 +133,7 @@ namespace CrabGui
 	}
 
 
-	void SampleFirstWindow::_testCreate()
+	void SampleFirstWindow::_testManualCreate()
 	{
 		_frmWnd1 = (FrameWindow*)_pSystem->createWindow("FrameWindow");
 		_frmWnd1->setParent(_pSystem->getRootWindow());
@@ -382,7 +388,7 @@ namespace CrabGui
 				}
 			}
 			Point ptResize(960, 0);	// y = 0 自动按比例缩放
-			pImage->saveAsPNG("D:/Works/Mobile/Pocker/client/projects/Pocker/Resources/table.png", 0, &ptResize);
+			pImage->saveToFile(IFF_PNG, "D:/Works/Mobile/Pocker/client/projects/Pocker/Resources/table.png", 0, &ptResize);
 		}
 		_pParser->destroyImage(pImage);
 	}
@@ -408,11 +414,48 @@ namespace CrabGui
 					rcClip.setRect(x * nWidth, y * nHeight, (x + 1) * nWidth, (y + 1) * nHeight);
 					strFile.format("%s_%d_%d.png", "D:/Works/Mobile/cocos2d-2.0-x-2.0.4/MobileTest/TestResources/Male", y, x);
 
-					pImage->saveAsPNG(strFile.getStrPtr(), &rcClip, 0);
+					pImage->saveToFile(IFF_PNG, strFile.getStrPtr(), &rcClip, 0);
 				}
 			}
 		}
 		_pParser->destroyImage(pImage);
+	}
+
+
+	void SampleFirstWindow::_testBatchConvertJPG()
+	{
+		Char szFilePath[] = "C:\\0803_XJW\\";	// 文件路径，最后必须以 \\ 结尾（拼字符串）
+		Char szFileFmt[]  = "*.jpg";			// 文件格式
+		Char szTmpFile[]  = "C:\\tmp.txt";
+
+		String strCmd;
+		strCmd.format("dir %s%s /b > %s", szFilePath, szFileFmt, szTmpFile);
+		system(strCmd.getStrPtr());
+
+		FILE* fp = fopen(szTmpFile, "r");
+		if (!fp)
+			return;
+
+		Char szTmp[256] = {0};
+		Image* pImage = _pParser->createImage();
+		for (Char* pszTmp = 0; !!(pszTmp = fgets(szTmp, 256, fp)); )
+		{
+			String strFile;
+			strFile.format("%s%s", szFilePath, pszTmp);
+
+			if (!pImage->loadFromFile(strFile.getStrPtr()))
+				continue;
+
+			Point ptSize = pImage->getSize();
+			if (ptSize.x < ptSize.y)
+				continue;
+
+			ptSize.x = ptSize.y / 2 * 3;
+			pImage->saveToFile(IFF_JPG, strFile.getStrPtr(), 0, &ptSize);
+		}
+		_pParser->destroyImage(pImage);
+
+		fclose(fp);
 	}
 
 
