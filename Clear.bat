@@ -10,11 +10,15 @@ rd /s /q .\FreeParser\temp
 rd /s /q .\Sample\temp
 del /s /q .\Output\CrabGui*_d.*
 
+rd /s /q .\ipch
+
 del /s /q *.cbp
 del /s /q *.layout
 del /s /q *.depend
+del /s /q *.filter
 
 del /s /q *.log
 del /s /q *.ncb
+del /s /q *.sdf
 del /s /q /a *.suo
 del /s /q *.user
