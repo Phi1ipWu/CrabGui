@@ -102,7 +102,7 @@ project "CrabGui_FreeParser"
 
 
 -------------------------------------------------------------------------------
-project "CrabGui_Sample"
+project "CrabGuiSample_FirstWindow"
     kind "WindowedApp"
     language "C++"
     characterset "ASCII"
@@ -125,7 +125,7 @@ project "CrabGui_Sample"
     }
 
     filter "configurations:Debug"
-        targetname "CrabGui_Sample_d"
+        targetname "CrabGuiSample_FirstWindow_d"
         links { "CrabGui_Core_d", "CrabGui_D3D9Renderer_d", "CrabGui_FreeParser_d", "d3d9", "d3dx9d", "Winmm" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS" }
         symbols "On"
