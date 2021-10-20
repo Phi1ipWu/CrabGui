@@ -1,0 +1,28 @@
+﻿生成启动时间为 2021/10/20 15:00:32。
+     1>项目“D:\Codes\CrabGui\D3D9Renderer\proj\CrabGui_D3D9Renderer.vcxproj”在节点 2 上(rebuild 个目标)。
+     1>_PrepareForClean:
+         正在删除文件“../temp/Release\CrabGui_D3D9Renderer.lastbuildstate”。
+       InitializeBuildStatus:
+         正在对“../temp/Release\CrabGui_D3D9Renderer.unsuccessfulbuild”执行 Touch 任务。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I../include /I../depend/DirectX9/include /I../../Core/include /Zi /nologo /W3 /WX- /O2 /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D CRABGUI_DLL /D _WINDLL /D _MBCS /Gm- /EHsc /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"../temp/Release\\" /Fd"../temp/Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\CrabGuiD3D9Renderer.cpp ..\src\CrabGuiD3D9RenderTarget.cpp ..\src\CrabGuiD3D9Texture.cpp
+         CrabGuiD3D9Renderer.cpp
+         CrabGuiD3D9RenderTarget.cpp
+         CrabGuiD3D9Texture.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"../lib\CrabGui_D3D9Renderer.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:../../Core/lib /LIBPATH:../depend/DirectX9/lib d3d9.lib CrabGui_Core.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"../temp/Release\CrabGui_D3D9Renderer.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\Codes\CrabGui\D3D9Renderer\lib\CrabGui_D3D9Renderer.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../lib\CrabGui_D3D9Renderer.lib" /MACHINE:X86 /DLL ../temp/Release\CrabGuiD3D9Renderer.obj
+         ../temp/Release\CrabGuiD3D9RenderTarget.obj
+         ../temp/Release\CrabGuiD3D9Texture.obj
+         D:\Codes\CrabGui\Core\lib\CrabGui_Core.lib
+            正在创建库 ../lib\CrabGui_D3D9Renderer.lib 和对象 ../lib\CrabGui_D3D9Renderer.exp
+     1>CrabGuiD3D9RenderTarget.obj : error LNK2001: 无法解析的外部符号 _D3DXMatrixOrthoOffCenterLH@28
+     1>CrabGuiD3D9Texture.obj : error LNK2001: 无法解析的外部符号 _D3DXSaveTextureToFileA@16
+     1>CrabGuiD3D9Texture.obj : error LNK2001: 无法解析的外部符号 _D3DXCreateTextureFromFileExA@56
+     1>CrabGuiD3D9Texture.obj : error LNK2001: 无法解析的外部符号 _D3DXCreateTextureFromFileInMemoryEx@60
+     1>CrabGuiD3D9Texture.obj : error LNK2001: 无法解析的外部符号 _D3DXCreateTexture@32
+     1>../lib\CrabGui_D3D9Renderer.dll : fatal error LNK1120: 5 个无法解析的外部命令
+     1>已完成生成项目“D:\Codes\CrabGui\D3D9Renderer\proj\CrabGui_D3D9Renderer.vcxproj”(rebuild 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:02.25

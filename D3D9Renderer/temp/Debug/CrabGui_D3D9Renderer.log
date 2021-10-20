@@ -1,0 +1,22 @@
+﻿生成启动时间为 2021/10/20 15:04:12。
+     1>项目“D:\Codes\CrabGui\D3D9Renderer\proj\CrabGui_D3D9Renderer.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在对“../temp/Debug\CrabGui_D3D9Renderer.unsuccessfulbuild”执行 Touch 任务。
+       ClCompile:
+         所有输出均为最新。
+       ManifestResourceCompile:
+         所有输出均为最新。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(990,5): warning MSB8012: TargetPath(D:\Codes\CrabGui\D3D9Renderer\proj\../lib\CrabGui_D3D9Renderer.dll) 与 Linker 的 OutputFile 属性值(D:\Codes\CrabGui\D3D9Renderer\lib\CrabGui_D3D9Renderer_d.dll)不匹配。这可能导致项目生成不正确。若要更正此问题，请确保 $(OutDir)、$(TargetName) 和 $(TargetExt) 属性值与 %(Link.OutputFile) 中指定的值匹配。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(992,5): warning MSB8012: TargetName(CrabGui_D3D9Renderer) 与 Linker 的 OutputFile 属性值(CrabGui_D3D9Renderer_d)不匹配。这可能导致项目生成不正确。若要更正此问题，请确保 $(OutDir)、$(TargetName) 和 $(TargetExt) 属性值与 %(Link.OutputFile) 中指定的值匹配。
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"../lib\CrabGui_D3D9Renderer_d.dll" /INCREMENTAL /NOLOGO /LIBPATH:../../Core/lib /LIBPATH:../depend/DirectX9/lib/x86 d3d9.lib d3dx9.lib CrabGui_Core_d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"../temp/Debug\CrabGui_D3D9Renderer.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\Codes\CrabGui\D3D9Renderer\lib\CrabGui_D3D9Renderer.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../lib\CrabGui_D3D9Renderer.lib" /MACHINE:X86 /DLL ../temp/Debug\CrabGui_D3D9Renderer.dll.embed.manifest.res
+         ../temp/Debug\CrabGuiD3D9Renderer.obj
+         ../temp/Debug\CrabGuiD3D9RenderTarget.obj
+         ../temp/Debug\CrabGuiD3D9Texture.obj
+         D:\Codes\CrabGui\Core\lib\CrabGui_Core.lib
+     1>LINK : fatal error LNK1104: 无法打开文件“CrabGui_Core_d.lib”
+     1>已完成生成项目“D:\Codes\CrabGui\D3D9Renderer\proj\CrabGui_D3D9Renderer.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.28
