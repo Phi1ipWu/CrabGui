@@ -90,12 +90,12 @@ project "CrabGui_FreeParser"
 
     filter "configurations:Debug"
         targetname "CrabGui_FreeParser_d"
-        links { "CrabGui_Core_d" }
+        links { "CrabGui_Core_d", "FreeImage", "freetype246MT" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
 
     filter "configurations:Release"
-        links { "CrabGui_Core" }
+        links { "CrabGui_Core", "FreeImage", "freetype246MT" }
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         optimize "On"
 
@@ -115,21 +115,23 @@ project "CrabGui_Sample"
     includedirs {
         "./Core/include",
         "./D3D9Renderer/include",
+        "./D3D9Renderer/depend/DirectX9/include",
         "./FreeParser/include",
     }
 
     libdirs {
         "./Output",
+        "./D3D9Renderer/depend/DirectX9/lib/x86"
     }
 
     filter "configurations:Debug"
         targetname "CrabGui_Sample_d"
-        links { "CrabGui_Core_d", "CrabGui_FreeParser_d", "CrabGui_FreeParser_d" }
+        links { "CrabGui_Core_d", "CrabGui_D3D9Renderer_d", "CrabGui_FreeParser_d", "d3d9", "d3dx9d", "Winmm" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS" }
         symbols "On"
 
     filter "configurations:Release"
-        links { "CrabGui_Core", "CrabGui_FreeParser", "CrabGui_FreeParser" }
+        links { "CrabGui_Core", "CrabGui_D3D9Renderer", "CrabGui_FreeParser", "d3d9", "d3dx9", "Winmm" }
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS" }
         optimize "On"
 
