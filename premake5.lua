@@ -2,13 +2,33 @@
 workspace "CrabGui"
     configurations { "Debug", "Release" }
 
+    if (_ACTION == "clean") then
+        os.rmdir("./obj")
+        os.rmdir("./Core/lib")
+        os.rmdir("./D3D9Renderer/lib")
+        os.rmdir("./FreeParser/lib")
+        os.remove("CrabGui.sdf")
+        os.remove("CrabGui.sln")
+        os.remove("CrabGui.suo")
+        os.remove("CrabGuiSample_FirstWindow.vcxproj")
+        os.remove("CrabGuiSample_FirstWindow.vcxproj.user")
+        os.remove("CrabGui_Core.vcxproj")
+        os.remove("CrabGui_Core.vcxproj.filters")
+        os.remove("CrabGui_Core.vcxproj.user")
+        os.remove("CrabGui_D3D9Renderer.vcxproj")
+        os.remove("CrabGui_D3D9Renderer.vcxproj.filters")
+        os.remove("CrabGui_D3D9Renderer.vcxproj.user")
+        os.remove("CrabGui_FreeParser.vcxproj")
+        os.remove("CrabGui_FreeParser.vcxproj.filters")
+        os.remove("CrabGui_FreeParser.vcxproj.user")
+    end
 
 -------------------------------------------------------------------------------
 project "CrabGui_Core"
     kind "SharedLib"
     language "C++"
     characterset "ASCII"
-    targetdir "./Output"
+    targetdir "./Core/lib"
 
     files {
         "./Core/include/**.h",
@@ -34,7 +54,7 @@ project "CrabGui_D3D9Renderer"
     kind "SharedLib"
     language "C++"
     characterset "ASCII"
-    targetdir "./Output"
+    targetdir "./D3D9Renderer/lib"
 
     files { 
         "./D3D9Renderer/include/**.h",
@@ -48,7 +68,7 @@ project "CrabGui_D3D9Renderer"
     }
 
     libdirs {
-        "./Output",
+        "./Core/lib",
         "./D3D9Renderer/depend/DirectX9/lib/x86"
     }
 
@@ -69,7 +89,7 @@ project "CrabGui_FreeParser"
     kind "SharedLib"
     language "C++"
     characterset "ASCII"
-    targetdir "./Output"
+    targetdir "./FreeParser/lib"
 
     files { 
         "./FreeParser/include/**.h",
@@ -84,7 +104,7 @@ project "CrabGui_FreeParser"
     }
 
     libdirs {
-        "./Output",
+        "./Core/lib",
         "./FreeParser/depend/"
     }
 
@@ -120,7 +140,9 @@ project "CrabGuiSample_FirstWindow"
     }
 
     libdirs {
-        "./Output",
+        "./Core/lib",
+        "./D3D9Renderer/lib",
+        "./FreeParser/lib",
         "./D3D9Renderer/depend/DirectX9/lib/x86"
     }
 
