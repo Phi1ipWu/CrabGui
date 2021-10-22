@@ -7,20 +7,19 @@ workspace "CrabGui"
         os.rmdir("./Core/lib")
         os.rmdir("./D3D9Renderer/lib")
         os.rmdir("./FreeParser/lib")
+
         os.remove("CrabGui.sdf")
         os.remove("CrabGui.sln")
         os.remove("CrabGui.suo")
-        os.remove("CrabGuiSample_FirstWindow.vcxproj")
-        os.remove("CrabGuiSample_FirstWindow.vcxproj.user")
-        os.remove("CrabGui_Core.vcxproj")
-        os.remove("CrabGui_Core.vcxproj.filters")
-        os.remove("CrabGui_Core.vcxproj.user")
-        os.remove("CrabGui_D3D9Renderer.vcxproj")
-        os.remove("CrabGui_D3D9Renderer.vcxproj.filters")
-        os.remove("CrabGui_D3D9Renderer.vcxproj.user")
-        os.remove("CrabGui_FreeParser.vcxproj")
-        os.remove("CrabGui_FreeParser.vcxproj.filters")
-        os.remove("CrabGui_FreeParser.vcxproj.user")
+        os.remove("CrabGuiSample_FirstWindow.*")
+        os.remove("CrabGui_Core.*")
+        os.remove("CrabGui_D3D9Renderer.*")
+        os.remove("CrabGui_FreeParser.*")
+
+        os.remove("Output/CrabGui_Core*.*")
+        os.remove("Output/CrabGui_D3D9Renderer*.*")
+        os.remove("Output/CrabGui_FreeParser*.*")
+        os.remove("Output/CrabGuiSample_FirstWindow*.*")
     end
 
 -------------------------------------------------------------------------------
@@ -43,10 +42,13 @@ project "CrabGui_Core"
         targetname "CrabGui_Core_d"
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core_d.dll ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core_d.pdb ./Output" }
 
     filter "configurations:Release"
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         optimize "On"
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core.dll ./Output" }
 
 
 -------------------------------------------------------------------------------
@@ -77,11 +79,14 @@ project "CrabGui_D3D9Renderer"
         links { "CrabGui_Core_d", "d3d9", "d3dx9d" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer_d.dll ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer_d.pdb ./Output" }
 
     filter "configurations:Release"
         links { "CrabGui_Core", "d3d9", "d3dx9" }
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         optimize "On"
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer.dll ./Output" }
 
 
 -------------------------------------------------------------------------------
@@ -113,11 +118,14 @@ project "CrabGui_FreeParser"
         links { "CrabGui_Core_d", "FreeImage", "freetype246MT" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser_d.dll ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser_d.pdb ./Output" }
 
     filter "configurations:Release"
         links { "CrabGui_Core", "FreeImage", "freetype246MT" }
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         optimize "On"
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser.dll ./Output" }
 
 
 
