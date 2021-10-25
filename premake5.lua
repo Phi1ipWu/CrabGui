@@ -3,10 +3,11 @@ workspace "CrabGui"
     configurations { "Debug", "Release" }
 
     if (_ACTION == "clean") then
-        os.rmdir("./obj")
+        os.rmdir("./_Depend")
         os.rmdir("./Core/lib")
         os.rmdir("./D3D9Renderer/lib")
         os.rmdir("./FreeParser/lib")
+        os.rmdir("./obj")
 
         os.remove("CrabGui.sdf")
         os.remove("CrabGui.sln")
@@ -66,12 +67,12 @@ project "CrabGui_D3D9Renderer"
     includedirs {
         "./Core/include",
         "./D3D9Renderer/include",
-        "./D3D9Renderer/depend/DirectX9/include"
+        "./_Depend/DirectX9/include"
     }
 
     libdirs {
         "./Core/lib",
-        "./D3D9Renderer/depend/DirectX9/lib/x86"
+        "./_Depend/DirectX9/lib/x86"
     }
 
     filter "configurations:Debug"
@@ -104,13 +105,15 @@ project "CrabGui_FreeParser"
     includedirs {
         "./Core/include",
         "./FreeParser/include",
-        "./FreeParser/depend",
+        "./_Depend/freeimage",
+        "./_Depend/freetype",
         --"./FreeParser/depend/freetype"
     }
 
     libdirs {
         "./Core/lib",
-        "./FreeParser/depend/"
+        "./_Depend/freeimage",
+        "./_Depend/freetype",
     }
 
     filter "configurations:Debug"
@@ -143,15 +146,15 @@ project "CrabGuiSample_FirstWindow"
     includedirs {
         "./Core/include",
         "./D3D9Renderer/include",
-        "./D3D9Renderer/depend/DirectX9/include",
         "./FreeParser/include",
+        "./_Depend/DirectX9/include",
     }
 
     libdirs {
         "./Core/lib",
         "./D3D9Renderer/lib",
         "./FreeParser/lib",
-        "./D3D9Renderer/depend/DirectX9/lib/x86"
+        "./_Depend/DirectX9/lib/x86"
     }
 
     filter "configurations:Debug"
