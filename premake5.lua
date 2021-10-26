@@ -43,12 +43,12 @@ project "CrabGui_Core"
         targetname "CrabGui_Core_d"
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core_d.dll ./Output" }
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core_d.pdb ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core_d.dll ./Output",
+                            "{COPY} %{cfg.targetdir}/CrabGui_Core_d.pdb ./Output" }
 
     filter "configurations:Release"
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
-        optimize "On"
+        -- optimize "On"
         postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core.dll ./Output" }
 
 
@@ -77,16 +77,16 @@ project "CrabGui_D3D9Renderer"
 
     filter "configurations:Debug"
         targetname "CrabGui_D3D9Renderer_d"
-        links { "CrabGui_Core_d", "d3d9", "d3dx9d" }
+        links { "CrabGui_Core_d", "d3d9", "d3dx9" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer_d.dll ./Output" }
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer_d.pdb ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer_d.dll ./Output",
+                            "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer_d.pdb ./Output" }
 
     filter "configurations:Release"
         links { "CrabGui_Core", "d3d9", "d3dx9" }
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
-        optimize "On"
+        -- optimize "On"
         postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer.dll ./Output" }
 
 
@@ -121,13 +121,13 @@ project "CrabGui_FreeParser"
         links { "CrabGui_Core_d", "FreeImage", "freetype246MT" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser_d.dll ./Output" }
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser_d.pdb ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser_d.dll ./Output",
+                            "{COPY} %{cfg.targetdir}/CrabGui_FreeParser_d.pdb ./Output" }
 
     filter "configurations:Release"
         links { "CrabGui_Core", "FreeImage", "freetype246MT" }
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
-        optimize "On"
+        -- optimize "On"
         postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser.dll ./Output" }
 
 
@@ -166,5 +166,5 @@ project "CrabGuiSample_FirstWindow"
     filter "configurations:Release"
         links { "CrabGui_Core", "CrabGui_D3D9Renderer", "CrabGui_FreeParser", "d3d9", "d3dx9", "Winmm" }
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS" }
-        optimize "On"
+        -- optimize "On"
 
