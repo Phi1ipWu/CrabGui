@@ -237,7 +237,7 @@ namespace CrabGui
 		_pSystem	= new CrabGui::System(_pRenderer, _pParser, "chs");
 
 		// 创建默认字体（临时）
-		_pSystem->createFont("C:/Windows/Fonts/MSYH.ttf");
+		_pSystem->createFont("C:/Windows/Fonts/MSYH.ttc");
 
 		// 根窗体
 		_wndRoot	= _pSystem->createWindow("Window");
