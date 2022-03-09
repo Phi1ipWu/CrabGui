@@ -8,6 +8,7 @@ workspace "CrabGui"
         os.rmdir("./D3D9Renderer/lib")
         os.rmdir("./FreeParser/lib")
         os.rmdir("./obj")
+        os.rmdir("./ipch")
 
         os.remove("CrabGui.sdf")
         os.remove("CrabGui.sln")
@@ -159,7 +160,7 @@ project "CrabGuiSample_FirstWindow"
 
     filter "configurations:Debug"
         targetname "CrabGuiSample_FirstWindow_d"
-        links { "CrabGui_Core_d", "CrabGui_D3D9Renderer_d", "CrabGui_FreeParser_d", "d3d9", "d3dx9d", "Winmm" }
+        links { "CrabGui_Core_d", "CrabGui_D3D9Renderer_d", "CrabGui_FreeParser_d", "d3d9", "d3dx9", "Winmm" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS" }
         symbols "On"
 
