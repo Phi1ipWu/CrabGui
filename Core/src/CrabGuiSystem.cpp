@@ -226,7 +226,8 @@ namespace CrabGui
 		if (pImage->loadFromFile(strName.getStrPtr()))
 		{
 			pTexture = _pRenderer->createTexture();
-			if (!pTexture->loadFromFile(strName.getStrPtr()))
+/*
+			if (!pTexture->loadFromMemory(strName.getStrPtr()))
 			{
 				// ...
 				// write log
@@ -234,7 +235,8 @@ namespace CrabGui
 				_pRenderer->destroyTexture(pTexture);
 				pTexture = 0;
 			}
-
+*/
+			pTexture->loadFromFile(strName.getStrPtr());
 			_pParser->destroyImage(pImage);
 			pImage = 0;
 		}

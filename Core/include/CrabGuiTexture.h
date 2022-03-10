@@ -17,7 +17,7 @@ namespace CrabGui
 		virtual Bool			loadFromFile(PCStr pszFileName) = 0;
 
 		/// 从内存中载入图片
-		virtual Bool			loadFromMemory(PCVoid pData, UInt nDataSize) = 0;
+		virtual Bool			loadFromMemory(PCVoid pData, const Point& ptSize, UInt nComp) = 0;
 
 		/// 保存到文件
 		virtual Bool			saveToFile(PCStr pszFileName) = 0;

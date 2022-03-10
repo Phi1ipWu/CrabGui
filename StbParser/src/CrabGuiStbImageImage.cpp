@@ -12,6 +12,7 @@ namespace CrabGui
     StbImageImage::StbImageImage()
 		:	_ptImgSize()
 		,	_pImgData(0)
+		,	_nImgComp(0)
     {
     }
 
@@ -30,14 +31,17 @@ namespace CrabGui
 
 		_pImgData = (stbi_uc *)stbi_load(pszFileName, &w, &h, &n, 4);
 		if (_pImgData)
+		{
 			_ptImgSize.setPoint(w, h);
+			_nImgComp = n;
+		}
 
         return !!_pImgData;
     }
 
 
     // 从内存中载入图片
-    Bool StbImageImage::loadFromMemory(PCVoid pData, UInt nDataSize)
+    Bool StbImageImage::loadFromFileMemory(PCVoid pData, UInt nDataSize)
     {
 		unloadImage();
 		Bool isSuccess = False;
@@ -45,7 +49,10 @@ namespace CrabGui
 
 		_pImgData = (stbi_uc *)stbi_load_from_memory((const stbi_uc *)pData, nDataSize, &w, &h, &n, 4);
 		if (_pImgData)
+		{
 			_ptImgSize.setPoint(w, h);
+			_nImgComp = n;
+		}
 
         return !!_pImgData;
     }

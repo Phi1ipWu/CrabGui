@@ -63,11 +63,11 @@ namespace CrabGui
 
 
 	// 从内存中载入图片
-	Bool D3D9Texture::loadFromMemory(PCVoid pData, UInt nDataSize)
+	Bool D3D9Texture::loadFromMemory(PCVoid pData, const Point& ptSize, UInt nComp)
 	{
 		CrabRelease(_pTex);
 		_ptSize.setZero();
-
+/*
 		D3DXIMAGE_INFO imgInfo;
 		HRESULT hr = D3DXCreateTextureFromFileInMemoryEx(
 				_pDev,
@@ -90,11 +90,32 @@ namespace CrabGui
 		{
 			return True;
 		}
+*/
+		HRESULT hr = _pDev->CreateTexture(
+				ptSize.x,
+				ptSize.y,
+				1,
+				0,
+				D3DFMT_UNKNOWN,
+				D3DPOOL_DEFAULT,
+				&_pTex,
+				0);
 
-		_ptSize.x = (Int16)imgInfo.Width;
-		_ptSize.y = (Int16)imgInfo.Height;
+		Color* pLockData = 0;
+		UInt uPitch  = 0;
+		UInt area = abs(ptSize.getArea());
+		if (this->lock((void*&)pLockData, uPitch))
+		{
+			for (UInt i = 0; i < area; ++i)
+			{
+				pLockData[i] = ((UInt*)pData)[i];//(uAlpha << 24) | 0x00FFFFFF;
+			}
 
-		return False;
+			this->unlock();
+		}
+
+		_ptSize = ptSize;
+		return True;
 	}
 
 
