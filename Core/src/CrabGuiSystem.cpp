@@ -222,14 +222,21 @@ namespace CrabGui
 			return pTexture;
 		}
 
-		pTexture = _pRenderer->createTexture();
-		if (!pTexture->loadFromFile(strName.getStrPtr()))
+		Image* pImage = _pParser->createImage();
+		if (pImage->loadFromFile(strName.getStrPtr()))
 		{
-			// ...
-			// write log
+			pTexture = _pRenderer->createTexture();
+			if (!pTexture->loadFromFile(strName.getStrPtr()))
+			{
+				// ...
+				// write log
 
-			_pRenderer->destroyTexture(pTexture);
-			pTexture = 0;
+				_pRenderer->destroyTexture(pTexture);
+				pTexture = 0;
+			}
+
+			_pParser->destroyImage(pImage);
+			pImage = 0;
 		}
 
 		_pRBTreeTexture->insert(uHash, pTexture);

@@ -71,12 +71,12 @@ project "CrabGui_D3D9Renderer"
     includedirs {
         "./Core/include",
         "./D3D9Renderer/include",
-        "./_Depend/DirectX9/include"
+        "./_Depend/dx9sdk/include"
     }
 
     libdirs {
         "./Core/lib",
-        "./_Depend/DirectX9/lib/x86"
+        "./_Depend/dx9sdk/lib/x86"
     }
 
     filter "configurations:Debug"
@@ -190,14 +190,14 @@ project "CrabGuiSample_FirstWindow"
         "./Core/include",
         "./D3D9Renderer/include",
         "./StbParser/include",
-        "./_Depend/DirectX9/include",
+        "./_Depend/dx9sdk/include",
     }
 
     libdirs {
         "./Core/lib",
         "./D3D9Renderer/lib",
         "./StbParser/lib",
-        "./_Depend/DirectX9/lib/x86"
+        "./_Depend/dx9sdk/lib/x86"
     }
 
     filter "configurations:Debug"
