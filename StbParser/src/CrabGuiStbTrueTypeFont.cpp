@@ -2,6 +2,9 @@
 #include "CrabGuiDefine.h"
 #include "CrabGuiStbTrueTypeFont.h"
 
+#define STB_TRUETYPE_IMPLEMENTATION
+#include "stb_truetype.h"
+
 
 namespace CrabGui
 {
@@ -12,12 +15,14 @@ namespace CrabGui
 
 	StbTrueTypeFont::~StbTrueTypeFont()
 	{
+		unloadFont();
 	}
 
 
 	// 从文件中载入图片
 	Bool StbTrueTypeFont::loadFont(PCStr pszFileName)
 	{
+		unloadFont();
 		return False;
 	}
 

@@ -2,7 +2,7 @@
 #include "CrabGui.h"
 #include "CrabGuiSample_FirstWindow.h"
 
-#include "CrabGuiFreeParser.h"
+#include "CrabGuiStbParser.h"
 
 
 namespace CrabGui

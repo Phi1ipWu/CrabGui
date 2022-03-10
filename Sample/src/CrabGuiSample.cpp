@@ -3,7 +3,7 @@
 #include "CrabGuiSample.h"
 
 #include "CrabGuiD3D9Renderer.h"
-#include "CrabGuiFreeParser.h"
+#include "CrabGuiStbParser.h"
 
 #include <windowsx.h>
 #include <io.h>
@@ -43,7 +43,7 @@ namespace CrabGui
 	{
 		if(0 != _access("CrabGui_Core.dll", 0) || 0 != _access("CrabGui_Core_d.dll", 0))
 		{
-			SetCurrentDirectory("../../Output/");
+			SetCurrentDirectory("./Output/");
 		}
 
 		_ptWndSize	= ptWndSize;
@@ -232,7 +232,7 @@ namespace CrabGui
 	Bool Sample::_initGui()
 	{
 		_pRenderer	= new CrabGui::D3D9Renderer(_pD3dDevice);
-		_pParser	= new CrabGui::FreeParser();
+		_pParser	= new CrabGui::StbParser();
 
 		_pSystem	= new CrabGui::System(_pRenderer, _pParser, "chs");
 

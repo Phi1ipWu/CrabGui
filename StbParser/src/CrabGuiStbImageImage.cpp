@@ -29,6 +29,8 @@ namespace CrabGui
 		Int w, h, n;
 
 		_pImgData = (stbi_uc *)stbi_load(pszFileName, &w, &h, &n, 4);
+		if (_pImgData)
+			_ptImgSize.setPoint(w, h);
 
         return !!_pImgData;
     }
@@ -42,7 +44,8 @@ namespace CrabGui
 		Int w, h, n;
 
 		_pImgData = (stbi_uc *)stbi_load_from_memory((const stbi_uc *)pData, nDataSize, &w, &h, &n, 4);
-		_ptImgSize.setPoint(w, h);
+		if (_pImgData)
+			_ptImgSize.setPoint(w, h);
 
         return !!_pImgData;
     }
@@ -90,7 +93,8 @@ namespace CrabGui
     // 获得坐标点的颜色
     Color StbImageImage::getColor(const Point& ptPos)
     {
-		return 0x0;
+		assert (isLoaded() && ptPos.x < _ptImgSize.x && ptPos.y < _ptImgSize.y);
+		return ((Color*)_pImgData)[ptPos.y * _ptImgSize.x + ptPos.x];
     }
 
 

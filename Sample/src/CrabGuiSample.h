@@ -15,7 +15,7 @@ namespace CrabGui
 
 	class System;
 	class D3D9Renderer;
-	class FreeParser;
+	class StbParser;
 
 
 	class Sample
@@ -78,7 +78,7 @@ namespace CrabGui
 		// UI 对象
 		System*			_pSystem;
 		D3D9Renderer*	_pRenderer;
-		FreeParser*		_pParser;
+		StbParser*		_pParser;
 
 		Window*			_wndRoot;
 	};
