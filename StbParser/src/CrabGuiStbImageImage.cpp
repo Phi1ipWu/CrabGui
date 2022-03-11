@@ -41,7 +41,7 @@ namespace CrabGui
 
 
     // 从内存中载入图片
-    Bool StbImageImage::loadFromFileMemory(PCVoid pData, UInt nDataSize)
+    Bool StbImageImage::loadFromFileInMemory(PCVoid pData, UInt nDataSize)
     {
 		unloadImage();
 		Bool isSuccess = False;
@@ -87,6 +87,18 @@ namespace CrabGui
     Point StbImageImage::getSize()
     {
         return _ptImgSize;
+    }
+
+
+    Bool StbImageImage::GetRawData(PCVoid* ppData, UInt* pDataSize)
+    {
+    	if (_pImgData)
+    	{
+    		*ppData		= _pImgData;
+    		*pDataSize	= _ptImgSize.getArea() * _nImgComp;
+    		return True;
+    	}
+    	return False;
     }
 
 

@@ -30,7 +30,7 @@ namespace CrabGui
 		virtual Bool	loadFromFile(PCStr pszFileName) = 0;
 
 		/// 从内存中载入图片
-		virtual Bool	loadFromFileMemory(PCVoid pData, UInt nDataSize) = 0;
+		virtual Bool	loadFromFileInMemory(PCVoid pData, UInt nDataSize) = 0;
 
         /// 卸载图片
         virtual void    unloadImage() = 0;
@@ -43,6 +43,9 @@ namespace CrabGui
 
 		/// 获得图片大小
 		virtual Point	getSize() = 0;
+
+		/// 获取图片原始数据
+		virtual Bool 	GetRawData(PCVoid* ppData, UInt* pDataSize) = 0;
 
 		/// 设置坐标点颜色
 		virtual Bool	setColor(const Point& ptPos, Color cColor) = 0;
