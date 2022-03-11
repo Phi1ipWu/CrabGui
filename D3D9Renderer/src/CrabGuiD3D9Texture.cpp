@@ -67,30 +67,7 @@ namespace CrabGui
 	{
 		CrabRelease(_pTex);
 		_ptSize.setZero();
-/*
-		D3DXIMAGE_INFO imgInfo;
-		HRESULT hr = D3DXCreateTextureFromFileInMemoryEx(
-				_pDev,
-				pData,
-				nDataSize,
-				D3DX_DEFAULT,
-				D3DX_DEFAULT,
-				1,
-				0,
-				D3DFMT_UNKNOWN,
-				D3DPOOL_DEFAULT,
-				D3DX_FILTER_NONE,
-				D3DX_FILTER_NONE,
-				0,
-				&imgInfo,
-				0,
-				&_pTex);
 
-		if (SUCCEEDED(hr))
-		{
-			return True;
-		}
-*/
 		if (!setSize(ptSize))
 			return False;
 
@@ -99,9 +76,16 @@ namespace CrabGui
 		UInt area = abs(ptSize.getArea());
 		if (this->lock((void*&)pLockData, uPitch))
 		{
-			for (UInt i = 0; i < area; ++i)
+			if (nComp == 4)
 			{
-				pLockData[i] = ((UInt*)pData)[i];//(uAlpha << 24) | 0x00FFFFFF;
+				memcpy(pLockData, pData, area * nComp);
+			}
+			else
+			{
+				for (UInt i = 0; i < area; ++i)
+				{
+					pLockData[i] = ((UInt*)pData)[i];
+				}
 			}
 
 			this->unlock();
