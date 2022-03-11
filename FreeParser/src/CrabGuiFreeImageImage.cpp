@@ -286,7 +286,15 @@ namespace CrabGui
 		//RGBQUAD* pPalette = FreeImage_GetPalette(pFIBitmap);
 
 		_pImgData = CrabNewArray(Color, _ptImgSize.getArea());
-		memcpy(_pImgData, pImgData, sizeof(Color) * _ptImgSize.getArea());
+
+		Bool isFlipY = True;
+		if (!isFlipY)
+			memcpy(_pImgData, pImgData, sizeof(Color) * _ptImgSize.getArea());
+		else
+			for (Int y = 0; y < _ptImgSize.y; ++y)
+			{
+				memcpy(&_pImgData[(_ptImgSize.y - 1 - y) * _ptImgSize.x], &pImgData[y * _ptImgSize.x], sizeof(Color) * _ptImgSize.x);
+			}
 
 		return True;
 	}

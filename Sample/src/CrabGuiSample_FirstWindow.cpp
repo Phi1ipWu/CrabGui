@@ -33,7 +33,7 @@ namespace CrabGui
 			//return True;
 
 			//_testConvertPNG();
-			_testBatchConvertJPG();
+			//_testBatchConvertJPG();
 		}
 
 
