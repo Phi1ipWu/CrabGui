@@ -5,6 +5,8 @@
 
 #include "CrabGuiFont.h"
 
+struct stbtt_fontinfo;
+
 
 namespace CrabGui
 {
@@ -33,7 +35,8 @@ namespace CrabGui
 
     private:
 
-		void*		_ftFace;
+		UInt8*			_pFileBuffer;
+		stbtt_fontinfo*	_pFontInfo;
     };
 
 }

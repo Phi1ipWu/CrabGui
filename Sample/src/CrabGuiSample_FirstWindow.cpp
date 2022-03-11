@@ -458,7 +458,6 @@ namespace CrabGui
 		fclose(fp);
 	}
 
-
 }	// end namespace
 
 
