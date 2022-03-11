@@ -37,6 +37,8 @@ namespace CrabGui
 		/// 缓存到纹理
 		void		cacheToTexture(UInt uCharSize);
 
+		/// 获取贴图
+		Texture*	getTexture(UInt uCharSize, UInt uIndex);
 
 	private:
 

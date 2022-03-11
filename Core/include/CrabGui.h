@@ -21,6 +21,9 @@
 #include "CrabGuiQueue.h"
 #include "CrabGuiRBTree.h"
 
+// 工具类
+#include "CrabGuiFontTexture.h"
+
 // 窗体控件
 #include "CrabGuiWindow.h"
 #include "CrabGuiStatic.h"

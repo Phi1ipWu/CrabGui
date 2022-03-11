@@ -120,6 +120,20 @@ namespace CrabGui
 	}
 
 
+	// 获取贴图
+	Texture* FontTexture::getTexture(UInt uCharSize, UInt uIndex)
+	{
+		Texture* pTexture = 0;
+		if (uCharSize < Max_Font_Size)
+		{
+			FontCache* pFontCache = &_stFontCaches[uCharSize - 1];
+			pTexture = (Texture*)pFontCache->pQueueTexture->getAt(uIndex);
+			
+		}
+		return pTexture;
+	}
+
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 
 

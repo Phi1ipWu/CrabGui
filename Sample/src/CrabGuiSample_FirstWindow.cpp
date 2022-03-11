@@ -88,6 +88,27 @@ namespace CrabGui
 	// 逻辑层的销毁
 	void SampleFirstWindow::cleanup()
 	{
+		// test code
+		{
+			FontTexture* pFontTexture = _pSystem->acquireFont("");
+			Texture* pTexture = pFontTexture ? pFontTexture->getTexture(16, 0) : 0;
+			if (pTexture)
+			{
+				Color* pData;
+				UInt uPitch;
+				if (pTexture->lock((void*&)pData, uPitch))
+				{
+					for (UInt i = 0; i < pTexture->getSize().getArea(); ++i)
+					{
+						UInt8 cAlpha = pData[i] >> 24;
+						pData[i] = 0xFF << 24 | cAlpha << 16 | cAlpha << 8 | cAlpha;
+					}
+
+					pTexture->unlock();
+				}
+				pTexture->saveToFile("./FontTexture_16_0.png");
+			}
+		}
 	}
 
 
