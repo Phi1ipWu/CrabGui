@@ -236,7 +236,15 @@ namespace CrabGui
 				pTexture = 0;
 			}
 */
-			pTexture->loadFromFile(strName.getStrPtr());
+			PCVoid pData;
+			UInt nDataSize;
+			if (pImage->GetRawData(&pData, &nDataSize))
+				pTexture->loadFromMemory(pData, pImage->getSize(), 4);
+			else
+			{
+				_pRenderer->destroyTexture(pTexture);
+				pTexture = 0;
+			}
 			_pParser->destroyImage(pImage);
 			pImage = 0;
 		}

@@ -67,7 +67,7 @@ namespace CrabGui
 
 
     // 从内存中载入图片
-    Bool FreeImageImage::loadFromMemory(PCVoid pData, UInt nDataSize)
+    Bool FreeImageImage::loadFromFileInMemory(PCVoid pData, UInt nDataSize)
     {
 		unloadImage();
 
@@ -136,6 +136,17 @@ namespace CrabGui
         return _ptImgSize;
     }
 
+	// 获取图片原始数据
+	Bool FreeImageImage::GetRawData(PCVoid* ppData, UInt* pDataSize)
+	{
+		if (_pImgData)
+		{
+			*ppData		= _pImgData;
+			*pDataSize	= _ptImgSize.getArea() * 4;
+			return True;
+		}
+		return False;
+	}
 
 	// 设置坐标点颜色
 	Bool FreeImageImage::setColor(const Point& ptPos, Color cColor)

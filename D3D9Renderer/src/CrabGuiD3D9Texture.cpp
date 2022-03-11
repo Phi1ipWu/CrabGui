@@ -91,15 +91,8 @@ namespace CrabGui
 			return True;
 		}
 */
-		HRESULT hr = _pDev->CreateTexture(
-				ptSize.x,
-				ptSize.y,
-				1,
-				0,
-				D3DFMT_UNKNOWN,
-				D3DPOOL_DEFAULT,
-				&_pTex,
-				0);
+		if (!setSize(ptSize))
+			return False;
 
 		Color* pLockData = 0;
 		UInt uPitch  = 0;
