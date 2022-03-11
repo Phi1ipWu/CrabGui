@@ -116,6 +116,9 @@ namespace CrabGui
 	// 手动设置大小
 	Bool D3D9Texture::setSize(const Point& ptSize)
 	{
+		if (_ptSize == ptSize)
+			return True;
+
 		CrabRelease(_pTex);
 		_ptSize.setZero();
 
