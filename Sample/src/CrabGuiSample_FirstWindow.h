@@ -39,6 +39,7 @@ namespace CrabGui
 		void	_testConvertPNG();
 		void	_testClipPNG();
 		void	_testBatchConvertJPG();
+		void	_testSaveFontTexture();
 
 
 	private:

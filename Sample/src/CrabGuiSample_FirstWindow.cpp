@@ -89,26 +89,7 @@ namespace CrabGui
 	void SampleFirstWindow::cleanup()
 	{
 		// test code
-		{
-			FontTexture* pFontTexture = _pSystem->acquireFont("");
-			Texture* pTexture = pFontTexture ? pFontTexture->getTexture(16, 0) : 0;
-			if (pTexture)
-			{
-				Color* pData;
-				UInt uPitch;
-				if (pTexture->lock((void*&)pData, uPitch))
-				{
-					for (UInt i = 0; i < pTexture->getSize().getArea(); ++i)
-					{
-						UInt8 cAlpha = pData[i] >> 24;
-						pData[i] = 0xFF << 24 | cAlpha << 16 | cAlpha << 8 | cAlpha;
-					}
-
-					pTexture->unlock();
-				}
-				pTexture->saveToFile("./FontTexture_16_0.png");
-			}
-		}
+		//_testSaveFontTexture();
 	}
 
 
@@ -479,6 +460,33 @@ namespace CrabGui
 		fclose(fp);
 	}
 
+
+	void SampleFirstWindow::_testSaveFontTexture()
+	{
+		FontTexture* pFontTexture = _pSystem->acquireFont("");
+		for (UInt j = 0; j <= 9999; ++j)
+		{
+			Texture* pTexture = pFontTexture ? pFontTexture->getTexture(16, j) : 0;
+			if (!pTexture)
+				return;
+
+			Color* pData;
+			UInt uPitch;
+			if (pTexture->lock((void*&)pData, uPitch))
+			{
+				for (Int i = 0; i < pTexture->getSize().getArea(); ++i)
+				{
+					UInt8 cAlpha = pData[i] >> 24;
+					pData[i] = 0xFF << 24 | cAlpha << 16 | cAlpha << 8 | cAlpha;
+				}
+
+				pTexture->unlock();
+			}
+			String strFileName;
+			strFileName.format("./FontTexture_16_%d.png", j);
+			pTexture->saveToFile(strFileName.getStrPtr());
+		}
+	}
 }	// end namespace
 
 
