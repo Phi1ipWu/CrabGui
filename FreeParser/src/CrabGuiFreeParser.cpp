@@ -37,6 +37,9 @@ namespace CrabGui
 		String strLine;
 		for (; fgets(szLine, 2048, _fp);)
 		{
+			if (szLine[0] == '#')
+				continue;
+
 			strLine = szLine;
 			Window* pNewWindow = _importWindow(uLayer, pSystem, strLine);
 			if (0 == pNewWindow)

@@ -3,7 +3,7 @@ workspace "CrabGui"
     configurations { "Debug", "Release" }
 
     if (_ACTION == "clean") then
-        --os.rmdir("./_Depend")
+        os.rmdir("./_Depend")
         os.rmdir("./Core/lib")
         os.rmdir("./D3D9Renderer/lib")
         os.rmdir("./FreeParser/lib")
