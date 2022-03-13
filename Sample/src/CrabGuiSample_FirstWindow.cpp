@@ -89,7 +89,7 @@ namespace CrabGui
 	void SampleFirstWindow::cleanup()
 	{
 		// test code
-		//_testSaveFontTexture();
+		_testSaveFontTexture();
 	}
 
 

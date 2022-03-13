@@ -181,6 +181,7 @@ namespace CrabGui
 		FontCache* pFontCache = &_stFontCaches[uCharSize - 1];
 		if (0 == pFontCache->pQueueTexture)
 		{
+			// 初创建
 			pFontCache->pQueueTexture = CrabNew(Queue)();
 
 			Renderer* pRenderer = System::getSingletonPtr()->getRenderer();
@@ -197,6 +198,10 @@ namespace CrabGui
 		}
 		else if (pFontCache->ptCurrPos.x + ptDataSize.x + Font_EdgeSpace * 2 > Font_TexSize)
 		{
+			// 当前行满，写入下一行
+			pFontCache->ptCurrPos = pFontCache->ptNextRow;
+			pTexture = (Texture*)pFontCache->pQueueTexture->getAt(pFontCache->pQueueTexture->getNum() - 1);
+
 			if (pFontCache->ptCurrPos.y + ptDataSize.y + Font_EdgeSpace * 2 > Font_TexSize)
 			{
 				// 当前纹理写满，另起一个新纹理
@@ -213,12 +218,6 @@ namespace CrabGui
 				pFontCache->ptNextRow.setZero();
 
 				memset(pFontCache->szTextureData, 0, sizeof(pFontCache->szTextureData));
-			}
-			else
-			{
-				// 当前行满，写入下一行
-				pFontCache->ptCurrPos = pFontCache->ptNextRow;
-				pTexture = (Texture*)pFontCache->pQueueTexture->getAt(pFontCache->pQueueTexture->getNum() - 1);
 			}
 		}
 		else
