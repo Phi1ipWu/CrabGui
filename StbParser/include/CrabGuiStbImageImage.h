@@ -50,7 +50,7 @@ namespace CrabGui
 
 
 	private:
-		void	_convertRGBAtoARGB();
+		void	_convertBGRAtoRGBA();
 
 
     private:
