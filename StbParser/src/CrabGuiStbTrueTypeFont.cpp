@@ -34,9 +34,9 @@ namespace CrabGui
 		if (fpFont == NULL)
 			return False;
 
-		fseek(fpFont, 0, SEEK_END); /* 设置文件指针到文件尾，基于文件尾偏移0字节 */
-		nFileSize = ftell(fpFont);       /* 获取文件大小（文件尾 - 文件头  单位：字节） */
-		fseek(fpFont, 0, SEEK_SET); /* 重新设置文件指针到文件头 */
+		fseek(fpFont, 0, SEEK_END);
+		nFileSize = ftell(fpFont);
+		fseek(fpFont, 0, SEEK_SET);
 
 		_pFileBuffer = CrabNewArray(UInt8, nFileSize);
 		fread(_pFileBuffer, nFileSize, 1, fpFont);
@@ -51,74 +51,72 @@ namespace CrabGui
 			return False;
 		}
 
-		return True;
 /*
-    // "STB"的 unicode 编码
-	unsigned short word = 0x6211;
+		// "STB"的 unicode 编码
+		unsigned short word = 0x6211;
 
-    // 计算字体缩放
-    float pixels = 64.0;                                    // 字体大小（字号）
-    float scale = stbtt_ScaleForPixelHeight(&info, pixels); // scale = pixels / (ascent - descent)
+		// 计算字体缩放
+		float pixels = 64.0;                                    // 字体大小（字号）
+		float scale = stbtt_ScaleForPixelHeight(&info, pixels); // scale = pixels / (ascent - descent)
 
     
-    // 获取垂直方向上的度量 
-    // ascent：字体从基线到顶部的高度；
-    // descent：基线到底部的高度，通常为负值；
-    // lineGap：两个字体之间的间距；
-    // 行间距为：ascent - descent + lineGap。
-    int ascent = 0;
-    int descent = 0;
-    int lineGap = 0;
-    stbtt_GetFontVMetrics(&info, &ascent, &descent, &lineGap);
+		// 获取垂直方向上的度量 
+		// ascent：字体从基线到顶部的高度；
+		// descent：基线到底部的高度，通常为负值；
+		// lineGap：两个字体之间的间距；
+		// 行间距为：ascent - descent + lineGap。
+		int ascent = 0;
+		int descent = 0;
+		int lineGap = 0;
+		stbtt_GetFontVMetrics(&info, &ascent, &descent, &lineGap);
 
-    // 根据缩放调整字高
-	ascent *= scale;
-	descent *= scale;
+		// 根据缩放调整字高
+		ascent *= scale;
+		descent *= scale;
 
 
-    //int x = 0; //位图的x
+		//int x = 0; //位图的x
 
-    // 获取水平方向上的度量
-    // advanceWidth：字宽；
-    // leftSideBearing：左侧位置；
-    int advanceWidth = 0;
-    int leftSideBearing = 0;
-    stbtt_GetCodepointHMetrics(&info, word, &advanceWidth, &leftSideBearing);
+		// 获取水平方向上的度量
+		// advanceWidth：字宽；
+		// leftSideBearing：左侧位置；
+		int advanceWidth = 0;
+		int leftSideBearing = 0;
+		stbtt_GetCodepointHMetrics(&info, word, &advanceWidth, &leftSideBearing);
 
-    // 获取字符的边框（边界）
-    int c_x1, c_y1, c_x2, c_y2;
-    stbtt_GetCodepointBitmapBox(&info, word, scale, scale, &c_x1, &c_y1, &c_x2, &c_y2);
+		// 获取字符的边框（边界）
+		int c_x1, c_y1, c_x2, c_y2;
+		stbtt_GetCodepointBitmapBox(&info, word, scale, scale, &c_x1, &c_y1, &c_x2, &c_y2);
 
-    //// 计算位图的y (不同字符的高度不同）
-    ////int y = ascent + c_y1;
+		//// 计算位图的y (不同字符的高度不同）
+		////int y = ascent + c_y1;
 
-	// unsigned char* bitmap = (unsigned char*)malloc(abs(c_x2 - c_x1 + 1) * abs(c_y2 - c_y1 + 1));
-	// stbtt_MakeCodepointBitmap(&info, bitmap, c_x2 - c_x1 + 1, c_y2 - c_y1 + 1, c_x2 - c_x1 + 1, scale, scale, word);
+		// unsigned char* bitmap = (unsigned char*)malloc(abs(c_x2 - c_x1 + 1) * abs(c_y2 - c_y1 + 1));
+		// stbtt_MakeCodepointBitmap(&info, bitmap, c_x2 - c_x1 + 1, c_y2 - c_y1 + 1, c_x2 - c_x1 + 1, scale, scale, word);
 
-    //// 渲染字符
-    // int byteOffset = x + roundf(leftSideBearing * scale) + (y * bitmap_w);
-    // stbtt_MakeCodepointBitmap(&info, bitmap + byteOffset, c_x2 - c_x1, c_y2 - c_y1, bitmap_w, scale, scale, word[i]);
+		//// 渲染字符
+		// int byteOffset = x + roundf(leftSideBearing * scale) + (y * bitmap_w);
+		// stbtt_MakeCodepointBitmap(&info, bitmap + byteOffset, c_x2 - c_x1, c_y2 - c_y1, bitmap_w, scale, scale, word[i]);
 
-    //// 调整x
-    // x += roundf(advanceWidth * scale);
+		//// 调整x
+		// x += roundf(advanceWidth * scale);
 
-    //// 调整字距
-    // int kern;
-    // kern = stbtt_GetCodepointKernAdvance(&info, word[i], word[i + 1]);
-    // x += roundf(kern * scale);
+		//// 调整字距
+		// int kern;
+		// kern = stbtt_GetCodepointKernAdvance(&info, word[i], word[i + 1]);
+		// x += roundf(kern * scale);
 
-	for (int y = 0; y < c_y2 - c_y1 + 1; ++ y)
-	{
-		for (int x = 0; x < c_x2 - c_x1 + 1; ++x)
-			putchar(" *"[bitmap[y * (c_x2 - c_x1 + 1) + x] >> 7]);
-		putchar('\n');
-	}
+		for (int y = 0; y < c_y2 - c_y1 + 1; ++ y)
+		{
+			for (int x = 0; x < c_x2 - c_x1 + 1; ++x)
+				putchar(" *"[bitmap[y * (c_x2 - c_x1 + 1) + x] >> 7]);
+			putchar('\n');
+		}
 
-	free(bitmap);
-    free(fontBuffer);
-
-	return 0;
+		free(bitmap);
+		free(fontBuffer);
 */
+		return True;
 	}
 
 

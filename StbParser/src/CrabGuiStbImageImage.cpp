@@ -34,6 +34,8 @@ namespace CrabGui
 		{
 			_ptImgSize.setPoint(w, h);
 			_nImgComp = n;
+
+			_convertRGBAtoARGB();
 		}
 
         return !!_pImgData;
@@ -52,6 +54,8 @@ namespace CrabGui
 		{
 			_ptImgSize.setPoint(w, h);
 			_nImgComp = n;
+
+			_convertRGBAtoARGB();
 		}
 
         return !!_pImgData;
@@ -150,5 +154,25 @@ namespace CrabGui
 
 		Bool isSuccess = False;
 		return isSuccess;
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	void StbImageImage::_convertRGBAtoARGB()
+	{
+		unsigned char cSwap;
+		for (Int i = 0; i < _ptImgSize.getArea(); ++i)
+		{
+			//UInt uColor = ((UInt*)_pImgData)[i];
+			////((UInt*)_pImgData)[i] = ((uColor & 0xFF000000) >> 24) | ((uColor & 0xFF0000) >> 8) | ((uColor & 0xFF00) << 8) | ((uColor & 0xFF) << 24);
+			//((UInt*)_pImgData)[i] = (uColor >> 24) | (uColor << 8);
+			cSwap = _pImgData[i * 4 + 3];
+			_pImgData[i * 4 + 0] = _pImgData[i * 4 + 1];
+			_pImgData[i * 4 + 1] = _pImgData[i * 4 + 2];
+			_pImgData[i * 4 + 2] = _pImgData[i * 4 + 3];
+			_pImgData[i * 4 + 0] = cSwap;
+		}
 	}
 }

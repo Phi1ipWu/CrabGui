@@ -10,9 +10,8 @@
 #include <io.h>
 #include <locale.h>
 
-#define Plugin_Renderer CrabGui::D3D9Renderer
-#define Plugin_Parser	CrabGui::FreeParser
-//#define Plugin_Parser	CrabGui::StbParser
+//#define Plugin_Parser	FreeParser
+#define Plugin_Parser	StbParser
 
 
 namespace CrabGui
@@ -236,7 +235,7 @@ namespace CrabGui
 
 	Bool Sample::_initGui()
 	{
-		_pRenderer	= new Plugin_Renderer(_pD3dDevice);
+		_pRenderer	= new D3D9Renderer(_pD3dDevice);
 		_pParser	= new Plugin_Parser();
 
 		_pSystem	= new CrabGui::System(_pRenderer, _pParser, "chs");

@@ -1,6 +1,6 @@
 ﻿
-#ifndef __CrabGuiFreeParser_h__
-#define __CrabGuiFreeParser_h__
+#ifndef __CrabGuiStbParser_h__
+#define __CrabGuiStbParser_h__
 
 
 #include "CrabGuiParser.h"
@@ -60,4 +60,4 @@ namespace CrabGui
 }
 
 
-#endif  //  __CrabGuiFreeParser_h__
+#endif  //  __CrabGuiStbParser_h__

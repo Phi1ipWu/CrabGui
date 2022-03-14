@@ -49,6 +49,10 @@ namespace CrabGui
 		virtual Bool	saveToFile(ImageFileFormat eFileFormat, PCStr pszFileName, Rect* pRectClip, Point* pResize);
 
 
+	private:
+		void	_convertRGBAtoARGB();
+
+
     private:
 		String	_strFileName;
         Point   _ptImgSize;
