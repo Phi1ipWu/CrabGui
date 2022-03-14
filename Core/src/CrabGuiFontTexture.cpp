@@ -127,8 +127,7 @@ namespace CrabGui
 		if (uCharSize < Max_Font_Size)
 		{
 			FontCache* pFontCache = &_stFontCaches[uCharSize - 1];
-			pTexture = (Texture*)pFontCache->pQueueTexture->getAt(uIndex);
-			
+			pTexture = pFontCache->pQueueTexture ? (Texture*)pFontCache->pQueueTexture->getAt(uIndex) : 0;
 		}
 		return pTexture;
 	}

@@ -47,7 +47,7 @@ namespace CrabGui
 	{
 		if(0 != _access("CrabGui_Core.dll", 0) || 0 != _access("CrabGui_Core_d.dll", 0))
 		{
-			SetCurrentDirectory("./Output/");
+			SetCurrentDirectory("../../Output/");
 		}
 
 		_ptWndSize	= ptWndSize;

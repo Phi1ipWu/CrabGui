@@ -3,12 +3,21 @@ workspace "CrabGui"
     configurations { "Debug", "Release" }
 
     if (_ACTION == "clean") then
-        os.rmdir("./_Depend")
+        -- os.rmdir("./_Depend")
+        os.rmdir("./Core/proj")
         os.rmdir("./Core/lib")
+        os.rmdir("./Core/obj")
+        os.rmdir("./D3D9Renderer/proj")
         os.rmdir("./D3D9Renderer/lib")
+        os.rmdir("./D3D9Renderer/obj")
+        os.rmdir("./FreeParser/proj")
         os.rmdir("./FreeParser/lib")
+        os.rmdir("./FreeParser/obj")
+        os.rmdir("./StbParser/proj")
         os.rmdir("./StbParser/lib")
-        os.rmdir("./obj")
+        os.rmdir("./StbParser/obj")
+        os.rmdir("./Sample/proj")
+        os.rmdir("./Sample/obj")
         os.rmdir("./ipch")
 
         os.remove("CrabGui.sdf")
@@ -32,6 +41,8 @@ project "CrabGui_Core"
     kind "SharedLib"
     language "C++"
     characterset "ASCII"
+    basedir   "./Core/proj"
+    objdir    "./Core/obj"
     targetdir "./Core/lib"
 
     files {
@@ -47,13 +58,13 @@ project "CrabGui_Core"
         targetname "CrabGui_Core_d"
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core_d.dll ./Output",
-                            "{COPY} %{cfg.targetdir}/CrabGui_Core_d.pdb ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core_d.dll ../../Output",
+                            "{COPY} %{cfg.targetdir}/CrabGui_Core_d.pdb ../../Output" }
 
     filter "configurations:Release"
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         -- optimize "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core.dll ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_Core.dll ../../Output" }
 
 
 -------------------------------------------------------------------------------
@@ -61,6 +72,8 @@ project "CrabGui_D3D9Renderer"
     kind "SharedLib"
     language "C++"
     characterset "ASCII"
+    basedir   "./D3D9Renderer/proj"
+    objdir    "./D3D9Renderer/obj"
     targetdir "./D3D9Renderer/lib"
 
     files { 
@@ -84,15 +97,14 @@ project "CrabGui_D3D9Renderer"
         links { "CrabGui_Core_d", "d3d9", "d3dx9" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer_d.dll ./Output",
-                            "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer_d.pdb ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer_d.dll ../../Output",
+                            "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer_d.pdb ../../Output" }
 
     filter "configurations:Release"
         links { "CrabGui_Core", "d3d9", "d3dx9" }
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         -- optimize "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer.dll ./Output" }
-
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_D3D9Renderer.dll ../../Output" }
 
 
 -------------------------------------------------------------------------------
@@ -100,6 +112,8 @@ project "CrabGui_FreeParser"
     kind "SharedLib"
     language "C++"
     characterset "ASCII"
+    basedir   "./FreeParser/proj"
+    objdir    "./FreeParser/obj"
     targetdir "./FreeParser/lib"
 
     files { 
@@ -126,14 +140,14 @@ project "CrabGui_FreeParser"
         links { "CrabGui_Core_d", "FreeImage", "freetype246MT" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser_d.dll ./Output",
-                            "{COPY} %{cfg.targetdir}/CrabGui_FreeParser_d.pdb ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser_d.dll ../../Output",
+                            "{COPY} %{cfg.targetdir}/CrabGui_FreeParser_d.pdb ../../Output" }
 
     filter "configurations:Release"
         links { "CrabGui_Core", "FreeImage", "freetype246MT" }
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         -- optimize "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser.dll ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_FreeParser.dll ../../Output" }
 
 
 -------------------------------------------------------------------------------
@@ -141,6 +155,8 @@ project "CrabGui_StbParser"
     kind "SharedLib"
     language "C++"
     characterset "ASCII"
+    basedir   "./StbParser/proj"
+    objdir    "./StbParser/obj"
     targetdir "./StbParser/lib"
 
     files { 
@@ -164,14 +180,14 @@ project "CrabGui_StbParser"
         links { "CrabGui_Core_d" }
         defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         symbols "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_StbParser_d.dll ./Output",
-                            "{COPY} %{cfg.targetdir}/CrabGui_StbParser_d.pdb ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_StbParser_d.dll ../../Output",
+                            "{COPY} %{cfg.targetdir}/CrabGui_StbParser_d.pdb ../../Output" }
 
     filter "configurations:Release"
         links { "CrabGui_Core" }
         defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "CRABGUI_DLL" }
         -- optimize "On"
-        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_StbParser.dll ./Output" }
+        postbuildcommands { "{COPY} %{cfg.targetdir}/CrabGui_StbParser.dll ../../Output" }
 
 
 
@@ -180,6 +196,8 @@ project "CrabGuiSample_FirstWindow"
     kind "WindowedApp"
     language "C++"
     characterset "ASCII"
+    basedir   "./Sample/proj"
+    objdir    "./Sample/obj"
     targetdir "./Output"
 
     files { 
