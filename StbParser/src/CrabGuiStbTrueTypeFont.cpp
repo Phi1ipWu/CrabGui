@@ -78,7 +78,7 @@ namespace CrabGui
 		//unsigned short word = 0x6211;
 
 		// 计算字体缩放
-		float pixels = uHeight;//64.0;                                    // 字体大小（字号）
+		float pixels = (float)uHeight;//64.0;                                    // 字体大小（字号）
 		float scale = stbtt_ScaleForPixelHeight(_pFontInfo, pixels); // scale = pixels / (ascent - descent)
 
 		// 获取垂直方向上的度量 
@@ -92,8 +92,8 @@ namespace CrabGui
 		stbtt_GetFontVMetrics(_pFontInfo, &ascent, &descent, &lineGap);
 
 		// 根据缩放调整字高
-		ascent  = ceil(ascent  * scale);
-		descent = ceil(descent * scale);
+		ascent  = (int)ceil(ascent  * scale);
+		descent = (int)ceil(descent * scale);
 
 		//int x = 0; //位图的x
 
@@ -112,7 +112,7 @@ namespace CrabGui
 		Point ptDataSize(abs(c_x2 - c_x1 + 1), abs(c_y2 - c_y1 + 1));
 		Point ptCharSize(ptDataSize);
 
-		if (pData && uDataSize >= ptDataSize.getArea())
+		if (pData && uDataSize >= (UInt)ptDataSize.getArea())
 		{
 			stbtt_MakeCodepointBitmap(_pFontInfo, (UInt8*)pData, ptDataSize.x, ptDataSize.y, ptDataSize.x, scale, scale, uChar);
 		}
