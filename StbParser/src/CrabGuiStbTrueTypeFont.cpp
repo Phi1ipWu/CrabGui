@@ -108,8 +108,8 @@ namespace CrabGui
 		int c_x1, c_y1, c_x2, c_y2;
 		stbtt_GetCodepointBitmapBox(_pFontInfo, uChar, scale, scale, &c_x1, &c_y1, &c_x2, &c_y2);
 
-		Point ptOffset(c_x1, uHeight - ascent);
-		Point ptDataSize(abs(c_x2 - c_x1 + 1), abs(c_y2 - c_y1 + 1));
+		Point ptOffset(c_x1, (int)(ascent + c_y1));
+		Point ptDataSize(abs(c_x2 - c_x1), abs(c_y2 - c_y1));
 		Point ptCharSize(ptDataSize);
 
 		if (pData && uDataSize >= (UInt)ptDataSize.getArea())
