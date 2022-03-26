@@ -223,11 +223,11 @@ project "CrabGuiSample_FirstWindow"
     filter "configurations:Debug"
         targetname "CrabGuiSample_FirstWindow_d"
         links { "CrabGui_Core_d", "CrabGui_D3D9Renderer_d", "CrabGui_FreeParser_d", "CrabGui_StbParser_d", "d3d9", "d3dx9", "Winmm" }
-        defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS" }
+        defines { "WIN32", "_DEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "_CRT_NONSTDC_NO_DEPRECATE" }
         symbols "On"
 
     filter "configurations:Release"
         links { "CrabGui_Core", "CrabGui_D3D9Renderer", "CrabGui_FreeParser", "CrabGui_StbParser", "d3d9", "d3dx9", "Winmm" }
-        defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS" }
+        defines { "WIN32", "NDEBUG", "_WINDOWS", "_CRT_SECURE_NO_WARNINGS", "_CRT_NONSTDC_NO_DEPRECATE" }
         -- optimize "On"
 
