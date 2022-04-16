@@ -283,10 +283,10 @@ namespace CrabGui
 	};
 
 
-	/// 点（浮点数）
+	/// 浮点数点（仅渲染用）
 	struct CRABGUIEXPORT PointF
 	{
-		float x, y, z;
+		float x, y;
 	};
 
 
