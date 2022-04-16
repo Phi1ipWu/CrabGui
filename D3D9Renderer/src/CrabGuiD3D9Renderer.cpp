@@ -98,7 +98,7 @@ namespace CrabGui
 	}
 
 
-	// 渲染
+	// 矩形渲染
 	Bool D3D9Renderer::renderTexture(Texture* pTexture, Color cDiffuse, const Rect& rcTex, const Rect& rcScreen)
 	{
 		if (pTexture)
@@ -116,11 +116,18 @@ namespace CrabGui
 	}
 
 
-	// 渲染（渲染目标）
+	// 矩形渲染（渲染目标）
 	Bool D3D9Renderer::renderRenderTarget(RenderTarget* pRT, Color cDiffuse, const Rect& rcTex, const Rect& rcScreen)
 	{
 		IDirect3DTexture9* pTex = ((D3D9RenderTarget*)pRT)->_pTex;
 		return _render(pTex, pRT->getRenderSize(), cDiffuse, rcTex, rcScreen);
+	}
+
+
+	// 自定义顶点渲染
+	Bool D3D9Renderer::renderRenderTargetVertices(RenderTarget* pRT, Int nPointSize, const PointF* pPoints, const Color* cDiffuses, const PointF* pTexPoints, Int nTriangleSize, const Int16* pTriangles)
+	{
+		return True;
 	}
 
 
@@ -163,14 +170,14 @@ namespace CrabGui
 		float u_add = 0.5f / rTexWidth;
 		float v_add = 0.5f / rTexHeight;
 
-		vtx[0].u = (float)rcTex.x1 / (float)rTexWidth  + u_add;
-		vtx[0].v = (float)rcTex.y1 / (float)rTexHeight + v_add;
-		vtx[1].u = (float)rcTex.x2 / (float)rTexWidth  + u_add;
-		vtx[1].v = (float)rcTex.y1 / (float)rTexHeight + v_add;
-		vtx[2].u = (float)rcTex.x1 / (float)rTexWidth  + u_add;
-		vtx[2].v = (float)rcTex.y2 / (float)rTexHeight + v_add;
-		vtx[3].u = (float)rcTex.x2 / (float)rTexWidth  + u_add;
-		vtx[3].v = (float)rcTex.y2 / (float)rTexHeight + v_add;
+		vtx[0].u = (float)rcTex.x1 / rTexWidth  + u_add;
+		vtx[0].v = (float)rcTex.y1 / rTexHeight + v_add;
+		vtx[1].u = (float)rcTex.x2 / rTexWidth  + u_add;
+		vtx[1].v = (float)rcTex.y1 / rTexHeight + v_add;
+		vtx[2].u = (float)rcTex.x1 / rTexWidth  + u_add;
+		vtx[2].v = (float)rcTex.y2 / rTexHeight + v_add;
+		vtx[3].u = (float)rcTex.x2 / rTexWidth  + u_add;
+		vtx[3].v = (float)rcTex.y2 / rTexHeight + v_add;
 
 		// 渲染
 		_pDev->SetFVF(FVF);

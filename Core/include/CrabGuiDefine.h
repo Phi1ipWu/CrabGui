@@ -283,6 +283,13 @@ namespace CrabGui
 	};
 
 
+	/// 点（浮点数）
+	struct CRABGUIEXPORT PointF
+	{
+		float x, y, z;
+	};
+
+
 	/// 矩形
 	struct CRABGUIEXPORT Rect
 	{

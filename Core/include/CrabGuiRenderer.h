@@ -26,12 +26,14 @@ namespace CrabGui
 		/// 设置裁减矩形
 		virtual Bool	setScissorRect(Bool isEnable, const Rect& rcScissor) = 0;
 
-		/// 渲染（纹理）
+		/// 矩形渲染（纹理）
 		virtual Bool	renderTexture(Texture* pTexture, Color cDiffuse, const Rect& rcTex, const Rect& rcScreen) = 0;
 
-		/// 渲染（渲染目标）
+		/// 矩形渲染（渲染目标）
 		virtual Bool	renderRenderTarget(RenderTarget* pRT, Color cDiffuse, const Rect& rcTex, const Rect& rcScreen) = 0;
 
+		/// 自定义顶点渲染（渲染目标）
+		virtual Bool	renderRenderTargetVertices(RenderTarget* pRT, Int nPointSize, const PointF* pPoints, const Color* cDiffuses, const PointF* pTexPoints, Int nTriangleSize, const Int16* pTriangles) = 0;
 
 	public:
 

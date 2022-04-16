@@ -9,7 +9,7 @@ namespace CrabGui
 	class System;
 	class Texture;
 	class RenderTarget;
-
+	class Queue;
 	class Font;
 
 
@@ -99,6 +99,12 @@ namespace CrabGui
 
 		RenderTarget*	_pRenderTarget;
 		Rect			_rcDirty;	// 脏矩形，只更新脏矩形区域
+
+		Point			_ptDivision;	// 矩形分割列
+		Queue*			_pVerticesQueue;
+		Queue*			_pTrianglesQueue;
+		Queue*			_pColorQueue;
+		Queue*			_pTexPointQueue;
 	};
 
 }
