@@ -34,7 +34,7 @@ namespace CrabGui
 		virtual Bool	renderRenderTarget(RenderTarget* pRT, Color cDiffuse, const Rect& rcTex, const Rect& rcScreen);
 
 		/// 自定义顶点渲染（渲染目标）
-		virtual Bool	renderRenderTargetVertices(RenderTarget* pRT, Int nPointSize, const PointF* pPoints, const Color* cDiffuses, const PointF* pTexPoints, Int nTriangleSize, const Int16* pTriangles);
+		virtual Bool	renderRenderTargetVertices(RenderTarget* pRT, Int nPointSize, const PointF* pPoints, const Color* pDiffuses, const PointF* pTexPoints, Int nTriangleSize, const Int16* pTriangles);
 
 		/// 渲染实现
 		Bool	_render(IDirect3DTexture9* pTex, const Point& ptTexSize, Color cDiffuse, const Rect& rcTex, const Rect& rcScreen);

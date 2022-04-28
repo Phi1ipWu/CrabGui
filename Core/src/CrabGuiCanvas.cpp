@@ -46,9 +46,16 @@ namespace CrabGui
 			if (ptSize.isZero())
 				return;
 
-			Rect rcTex(0, 0, ptSize.x, ptSize.y);
-			Rect rcScreen(ptPos.x, ptPos.y, ptPos.x + ptSize.x, ptPos.y + ptSize.y);
-			System::getSingletonPtr()->getRenderer()->renderRenderTarget(_pRenderTarget, 0xFFFFFFFF, rcTex, rcScreen);
+			//Rect rcTex(0, 0, ptSize.x, ptSize.y);
+			//Rect rcScreen(ptPos.x, ptPos.y, ptPos.x + ptSize.x, ptPos.y + ptSize.y);
+			//System::getSingletonPtr()->getRenderer()->renderRenderTarget(_pRenderTarget, 0xFFFFFFFF, rcTex, rcScreen);
+
+			PointF vertices[4]	= {	{ ptPos.x, ptPos.y}, { ptPos.x + ptSize.x, ptPos.y }, 
+									{ ptPos.x, ptPos.y + ptSize.y }, { ptPos.x + ptSize.x, ptPos.y + ptSize.y } };
+			PointF texPoints[4]	= { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f } };
+			Int16 triangles[6]	= { 0, 1, 2, 1, 3, 2 };
+
+			System::getSingletonPtr()->getRenderer()->renderRenderTargetVertices(_pRenderTarget, 4, vertices, 0, texPoints, 6, triangles);
 		}
 	}
 

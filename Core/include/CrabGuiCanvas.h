@@ -102,9 +102,9 @@ namespace CrabGui
 
 		Point			_ptDivision;	// 矩形分割列
 		Queue*			_pVerticesQueue;
-		Queue*			_pTrianglesQueue;
 		Queue*			_pColorQueue;
 		Queue*			_pTexPointQueue;
+		Queue*			_pTrianglesQueue;
 	};
 
 }
