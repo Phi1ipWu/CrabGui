@@ -125,9 +125,51 @@ namespace CrabGui
 
 
 	// 自定义顶点渲染
-	Bool D3D9Renderer::renderRenderTargetVertices(RenderTarget* pRT, Int nPointSize, const PointF* pPoints, const Color* cDiffuses, const PointF* pTexPoints, Int nTriangleSize, const Int16* pTriangles)
+	Bool D3D9Renderer::renderRenderTargetVertices(RenderTarget* pRT, Int nPointSize, const PointF* pPoints, const Color* pDiffuses, const PointF* pTexPoints, Int nTriangleSize, const Int16* pTriangles)
 	{
-		return True;
+		IDirect3DTexture9* pTex = ((D3D9RenderTarget*)pRT)->_pTex;
+
+		struct Vertex2D
+		{
+			float   x, y, z;
+			Color	diffuse;
+			float   u, v;
+		};
+		static const UInt FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1;
+
+		// DX 的 UV 坐标修正
+		PointF uv_add = { 0.5f / pRT->getRenderSize().x, 0.5f / pRT->getRenderSize().y };
+
+		Vertex2D vtx[256] = {0};
+		for (int i = 0; i < nPointSize; ++i)
+		{
+			// 顶点信息
+			vtx[i].x = pPoints[i].x;
+			vtx[i].y = pPoints[i].y;
+			vtx[i].z = 1.0f;
+
+			// 顶点色
+			vtx[i].diffuse = pDiffuses ? pDiffuses[i] : 0xFFFFFFFF;
+
+			// 纹理
+			vtx[i].u = (float)pTexPoints[i].x + uv_add.x;
+			vtx[i].v = (float)pTexPoints[i].y + uv_add.y;
+		}
+
+		// 渲染
+		_pDev->SetFVF(FVF);
+		_pDev->SetTexture(0, pTex);
+
+		HRESULT hr = _pDev->DrawIndexedPrimitiveUP(	D3DPT_TRIANGLELIST,
+													0,
+													nPointSize,			// 顶点数
+													nTriangleSize / 3,	// 索引三角面数
+													pTriangles,
+													D3DFMT_INDEX16,
+													vtx,
+													sizeof(Vertex2D));
+
+		return SUCCEEDED(hr);
 	}
 
 
