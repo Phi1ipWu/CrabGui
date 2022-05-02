@@ -42,7 +42,7 @@ namespace CrabGui
 	public:	// 画布属性相关
 
 		/// 重设大小
-		void	setSize(Bool isVisible, Point ptSize);
+		void	setSize(Bool isVisible, Point ptSize, Point ptCellSize);
 
 		/// 绑定渲染目标
 		void	bind();
@@ -100,7 +100,7 @@ namespace CrabGui
 		RenderTarget*	_pRenderTarget;
 		Rect			_rcDirty;	// 脏矩形，只更新脏矩形区域
 
-		Point			_ptDivision;	// 矩形分割列
+		Point			_ptCellSize;	// 矩形分割列
 		Queue*			_pVerticesQueue;
 		Queue*			_pColorQueue;
 		Queue*			_pTexPointQueue;

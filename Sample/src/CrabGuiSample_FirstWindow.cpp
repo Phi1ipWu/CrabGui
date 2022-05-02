@@ -37,11 +37,11 @@ namespace CrabGui
 		}
 
 
-		Bool isUseCanvas = True;
+		UInt uCanvasCellSize = 10;
 
 		_frmWnd1 = (FrameWindow*)_pParser->createFromFile(_pSystem->getRootWindow(), "frmTest1.crabgui");
 		_frmWnd1->setEventHandle(this);
-		_frmWnd1->setUseCanvas(isUseCanvas);
+		_frmWnd1->setUseCanvas(10);
 
 		String strTemp;
 		for (UInt i = 0; i < 4; ++i)
@@ -54,7 +54,7 @@ namespace CrabGui
 
 		_frmWnd2 = (FrameWindow*)_pParser->createFromFile(_pSystem->getRootWindow(), "frmTest2.crabgui");
 		_frmWnd2->setEventHandle(this);
-		_frmWnd2->setUseCanvas(isUseCanvas);
+		_frmWnd2->setUseCanvas(uCanvasCellSize);
 
 		_edtText = (Editbox*)_frmWnd2->getChild("edtText");
 		_lstItem = (Listbox*)_frmWnd2->getChild("lstItem");
@@ -160,8 +160,8 @@ namespace CrabGui
 		_frmWnd1->setPropert("Text",	"我人有的和\\t主产不为这\\n工要在地一上是中国同\\n\\\\经以发了民");
 
 		// 必须要在设置大小后设置
-		_frmWnd1->setUseCanvas(True);
-
+		UInt uCanvasCellSize = 10;
+		_frmWnd1->setUseCanvas(uCanvasCellSize);
 
 		UInt uPicRect_y[4] = {0, 20, 40, 214};
 		String strTemp;
@@ -203,7 +203,7 @@ namespace CrabGui
 		_frmWnd2->setPropert("Text",	"");
 
 		// 必须要在设置大小后设置
-		_frmWnd2->setUseCanvas(True);
+		_frmWnd2->setUseCanvas(10);
 
 		_edtText = (Editbox*)_pSystem->createWindow("Editbox");
 		_edtText->setParent(_frmWnd2);

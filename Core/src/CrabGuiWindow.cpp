@@ -117,15 +117,16 @@ namespace CrabGui
 	}
 
 
-	// 设置是否使用画布（不得乱调用）
-	void Window::setUseCanvas(Bool isTrue)
+	// 设置是否使用画布
+	void Window::setUseCanvas(UInt uCanvasCellSize)
 	{
-		if (_ptSize.isZero() || isUseCanvas() == isTrue)
-			return;
+		_ptCanvasCellSize.setPoint((Int16)uCanvasCellSize, (Int16)uCanvasCellSize);
 
-		if (isTrue)
+		if (uCanvasCellSize > 0)
 		{
-			_pCanvas = CrabNew(Canvas)();
+			if (!_pCanvas)
+				_pCanvas = CrabNew(Canvas)();
+
 			setDirtyRect(0);
 		}
 		else
@@ -212,7 +213,7 @@ namespace CrabGui
 	{
 		if (0 == pCanvas && _pCanvas)
 		{
-			_pCanvas->setSize(isVisible(), _ptSize);
+			_pCanvas->setSize(isVisible(), _ptSize, Point(1,1));
 		}
 
 		if (!isVisible())

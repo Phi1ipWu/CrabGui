@@ -3,6 +3,7 @@
 #include "CrabGuiCanvas.h"
 
 #include "CrabGuiSystem.h"
+#include "CrabGuiQueue.h"
 #include "CrabGuiRenderer.h"
 #include "CrabGuiTexture.h"
 #include "CrabGuiRenderTarget.h"
@@ -24,12 +25,13 @@ namespace CrabGui
 
 	Canvas::Canvas()
 		: _pRenderTarget(0)
+		, _pVerticesQueue(0), _pColorQueue(0), _pTexPointQueue(0), _pTrianglesQueue(0)
 	{
 	}
 
 	Canvas::~Canvas(void)
 	{
-		setSize(False, Point());
+		setSize(False, Point(), Point());
 	}
 
 
@@ -97,7 +99,7 @@ namespace CrabGui
 
 
 	// 重设大小
-	void Canvas::setSize(Bool isVisible, Point ptSize)
+	void Canvas::setSize(Bool isVisible, Point ptSize, Point ptCellSize)
 	{
 		if (isVisible && ptSize.getArea() > 0)
 		{
@@ -107,6 +109,18 @@ namespace CrabGui
 			}
 
 			_pRenderTarget->setRenderSize(ptSize);
+
+			if (ptCellSize.getArea() > 0)
+			{
+				if (!_pVerticesQueue)
+					_pVerticesQueue = CrabNew(Queue)(sizeof(PointF));
+				if (!_pColorQueue)
+					_pColorQueue = CrabNew(Queue)(sizeof(Color));
+				if (!_pTexPointQueue)
+					_pTexPointQueue = CrabNew(Queue)(sizeof(PointF));
+				if (!_pTrianglesQueue)
+					_pTrianglesQueue = CrabNew(Queue)(sizeof(Int16));
+			}
 		}
 		else
 		{
@@ -115,6 +129,11 @@ namespace CrabGui
 				System::getSingletonPtr()->getRenderer()->destroyRenderTarget(_pRenderTarget);
 				_pRenderTarget = 0;
 			}
+
+			CrabDelete(_pVerticesQueue);
+			CrabDelete(_pColorQueue);
+			CrabDelete(_pTexPointQueue);
+			CrabDelete(_pTrianglesQueue);
 		}
 	}
 

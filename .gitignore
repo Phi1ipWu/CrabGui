@@ -608,3 +608,13 @@ StbParser/obj/Debug/link.7772-cvtres.read.1.tlog
 StbParser/obj/Debug/link.7772-cvtres.write.1.tlog
 StbParser/obj/Debug/link.7772.read.1.tlog
 StbParser/obj/Debug/link.7772.write.1.tlog
+Core/obj/Debug/link.5228-cvtres.read.1.tlog
+Core/obj/Debug/link.5228-cvtres.write.1.tlog
+Core/obj/Debug/link.5228.read.1.tlog
+Core/obj/Debug/link.5228.write.1.tlog
+Core/obj/Debug/link.7648-cvtres.read.1.tlog
+Core/obj/Debug/link.7648-cvtres.write.1.tlog
+Core/obj/Debug/link.7648.read.1.tlog
+Core/obj/Debug/link.7648.write.1.tlog
+*.tlog
+*.cache
