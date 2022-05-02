@@ -284,9 +284,15 @@ namespace CrabGui
 
 
 	/// 浮点数点（仅渲染用）
-	struct CRABGUIEXPORT PointF
+	struct CRABGUIEXPORT PointReal
 	{
-		float x, y;
+		Real x, y;
+
+		// PointReal();
+		// PointReal(Int16 x_, Int16 y_);
+		//
+		// /// 设置点
+		// void	SetPoint(Real x_, Real y_);
 	};
 
 

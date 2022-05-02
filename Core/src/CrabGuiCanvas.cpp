@@ -25,7 +25,7 @@ namespace CrabGui
 
 	Canvas::Canvas()
 		: _pRenderTarget(0)
-		, _pVerticesQueue(0), _pColorQueue(0), _pTexPointQueue(0), _pTrianglesQueue(0)
+		, _pGridVertices(0), _pGridColors(0), _pGridTexPoints(0), _pGridTriangles(0)
 	{
 	}
 
@@ -48,16 +48,27 @@ namespace CrabGui
 			if (ptSize.isZero())
 				return;
 
-			//Rect rcTex(0, 0, ptSize.x, ptSize.y);
-			//Rect rcScreen(ptPos.x, ptPos.y, ptPos.x + ptSize.x, ptPos.y + ptSize.y);
-			//System::getSingletonPtr()->getRenderer()->renderRenderTarget(_pRenderTarget, 0xFFFFFFFF, rcTex, rcScreen);
+			if (_pGridVertices && _pGridTexPoints && _pGridTriangles)
+			{
+				Real r = 0.0f;
+				Real rSpring = 0.005f;
+				r = (Real)ptPos.x + 0;			_pGridVertices[0].x += (r - _pGridVertices[0].x) * rSpring;
+				r = (Real)ptPos.y + 0;			_pGridVertices[0].y += (r - _pGridVertices[0].y) * rSpring;
+				r = (Real)ptPos.x + ptSize.x;	_pGridVertices[1].x += (r - _pGridVertices[1].x) * rSpring;
+				r = (Real)ptPos.y + 0;			_pGridVertices[1].y += (r - _pGridVertices[1].y) * rSpring;
+				r = (Real)ptPos.x + 0;			_pGridVertices[2].x += (r - _pGridVertices[2].x) * rSpring;
+				r = (Real)ptPos.y + ptSize.y;	_pGridVertices[2].y += (r - _pGridVertices[2].y) * rSpring;
+				r = (Real)ptPos.x + ptSize.x;	_pGridVertices[3].x += (r - _pGridVertices[3].x) * rSpring;
+				r = (Real)ptPos.y + ptSize.y;	_pGridVertices[3].y += (r - _pGridVertices[3].y) * rSpring;
 
-			PointF vertices[4]	= {	{ ptPos.x, ptPos.y}, { ptPos.x + ptSize.x, ptPos.y }, 
-									{ ptPos.x, ptPos.y + ptSize.y }, { ptPos.x + ptSize.x, ptPos.y + ptSize.y } };
-			PointF texPoints[4]	= { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f } };
-			Int16 triangles[6]	= { 0, 1, 2, 1, 3, 2 };
-
-			System::getSingletonPtr()->getRenderer()->renderRenderTargetVertices(_pRenderTarget, 4, vertices, 0, texPoints, 6, triangles);
+				System::getSingletonPtr()->getRenderer()->renderRenderTargetVertices(_pRenderTarget, 4, _pGridVertices, 0, _pGridTexPoints, 6, _pGridTriangles);
+			}
+			else
+			{
+				Rect rcTex(0, 0, ptSize.x, ptSize.y);
+				Rect rcScreen(ptPos.x, ptPos.y, ptPos.x + ptSize.x, ptPos.y + ptSize.y);
+				System::getSingletonPtr()->getRenderer()->renderRenderTarget(_pRenderTarget, 0xFFFFFFFF, rcTex, rcScreen);
+			}
 		}
 	}
 
@@ -99,7 +110,7 @@ namespace CrabGui
 
 
 	// 重设大小
-	void Canvas::setSize(Bool isVisible, Point ptSize, Point ptCellSize)
+	void Canvas::setSize(Bool isVisible, Point ptSize, Point ptGridSize)
 	{
 		if (isVisible && ptSize.getArea() > 0)
 		{
@@ -109,18 +120,6 @@ namespace CrabGui
 			}
 
 			_pRenderTarget->setRenderSize(ptSize);
-
-			if (ptCellSize.getArea() > 0)
-			{
-				if (!_pVerticesQueue)
-					_pVerticesQueue = CrabNew(Queue)(sizeof(PointF));
-				if (!_pColorQueue)
-					_pColorQueue = CrabNew(Queue)(sizeof(Color));
-				if (!_pTexPointQueue)
-					_pTexPointQueue = CrabNew(Queue)(sizeof(PointF));
-				if (!_pTrianglesQueue)
-					_pTrianglesQueue = CrabNew(Queue)(sizeof(Int16));
-			}
 		}
 		else
 		{
@@ -129,11 +128,59 @@ namespace CrabGui
 				System::getSingletonPtr()->getRenderer()->destroyRenderTarget(_pRenderTarget);
 				_pRenderTarget = 0;
 			}
+		}
 
-			CrabDelete(_pVerticesQueue);
-			CrabDelete(_pColorQueue);
-			CrabDelete(_pTexPointQueue);
-			CrabDelete(_pTrianglesQueue);
+		if (ptGridSize != _ptGridSize)
+		{
+			_ptGridSize.setZero();
+			CrabDeleteArray(_pGridVertices);
+			CrabDeleteArray(_pGridColors);
+			CrabDeleteArray(_pGridTexPoints);
+			CrabDeleteArray(_pGridTriangles);
+
+			if (ptGridSize.x > 1 || ptGridSize.y > 1)
+			{
+				_ptGridSize.setPoint(ptGridSize.x, ptGridSize.y);
+
+				Int nVertexSize		= _ptGridSize.getArea();
+				Int nTriangleSize	= (_ptGridSize.x - 1) * (_ptGridSize.y - 1) * 2 * 3;	// rectrangle => 2triangles, triangle => 3points
+
+				if (!_pGridVertices)
+					_pGridVertices = CrabNewArray(PointReal, nVertexSize);
+				//if (!_pGridColors)
+				//	_pGridColors = CrabNewArray(PointReal, nVertexSize);
+				if (!_pGridTexPoints)
+					_pGridTexPoints = CrabNewArray(PointReal, nVertexSize);
+				if (!_pGridTriangles)
+					_pGridTriangles = CrabNewArray(Int16, nTriangleSize);
+	/*
+				Int nVertexIndex = 0;
+				Int nTriangleIndex = 0;
+				for (Int i = 0; i < nVertexSize; ++i)
+				{
+					_pGridVertices[nVertexIndex].x = 0;
+					_pGridVertices[nVertexIndex].y = 0;
+
+					++nVertexIndex;
+				}
+	*/
+				_pGridVertices[0].x = 0,	_pGridVertices[0].y = 0;
+				_pGridVertices[1].x = 0,	_pGridVertices[1].y = 0;
+				_pGridVertices[2].x = 0,	_pGridVertices[2].y = 0;
+				_pGridVertices[3].x = 0,	_pGridVertices[3].y = 0;
+
+				_pGridTexPoints[0].x = 0.0f,	_pGridTexPoints[0].y = 0.0f;
+				_pGridTexPoints[1].x = 1.0f,	_pGridTexPoints[1].y = 0.0f;
+				_pGridTexPoints[2].x = 0.0f,	_pGridTexPoints[2].y = 1.0f;
+				_pGridTexPoints[3].x = 1.0f,	_pGridTexPoints[3].y = 1.0f;
+
+				_pGridTriangles[0] = 0;
+				_pGridTriangles[1] = 1;
+				_pGridTriangles[2] = 2;
+				_pGridTriangles[3] = 1;
+				_pGridTriangles[4] = 3;
+				_pGridTriangles[5] = 2;
+			}
 		}
 	}
 

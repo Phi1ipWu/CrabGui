@@ -38,6 +38,9 @@ namespace CrabGui
 		/// 移除尾（效率最高）
 		void*	removeEnd();
 
+		/// 获取指定位置
+		void*	getAt(UInt uIndex);
+
 		/// 数据交换
 		Bool	swap(UInt uIndex1, UInt uIndex2);
 

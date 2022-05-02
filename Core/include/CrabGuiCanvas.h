@@ -42,7 +42,7 @@ namespace CrabGui
 	public:	// 画布属性相关
 
 		/// 重设大小
-		void	setSize(Bool isVisible, Point ptSize, Point ptCellSize);
+		void	setSize(Bool isVisible, Point ptSize, Point ptGridSize);
 
 		/// 绑定渲染目标
 		void	bind();
@@ -100,11 +100,11 @@ namespace CrabGui
 		RenderTarget*	_pRenderTarget;
 		Rect			_rcDirty;	// 脏矩形，只更新脏矩形区域
 
-		Point			_ptCellSize;	// 矩形分割列
-		Queue*			_pVerticesQueue;
-		Queue*			_pColorQueue;
-		Queue*			_pTexPointQueue;
-		Queue*			_pTrianglesQueue;
+		Point			_ptGridSize;	// 矩形分割列
+		PointReal*		_pGridVertices;
+		Color*			_pGridColors;
+		PointReal*		_pGridTexPoints;
+		Int16*			_pGridTriangles;
 	};
 
 }

@@ -129,6 +129,13 @@ namespace CrabGui
 	}
 
 
+	// 获取指定位置
+	void* Queue::getAt(UInt uIndex)
+	{
+		return (uIndex < _uNum) ? _ppData[uIndex] : 0;
+	}
+
+
 	// 数据交换
 	Bool Queue::swap(UInt uIndex1, UInt uIndex2)
 	{

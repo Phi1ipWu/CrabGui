@@ -125,7 +125,7 @@ namespace CrabGui
 
 
 	// 自定义顶点渲染
-	Bool D3D9Renderer::renderRenderTargetVertices(RenderTarget* pRT, Int nPointSize, const PointF* pPoints, const Color* pDiffuses, const PointF* pTexPoints, Int nTriangleSize, const Int16* pTriangles)
+	Bool D3D9Renderer::renderRenderTargetVertices(RenderTarget* pRT, Int nPointSize, const PointReal* pPoints, const Color* pDiffuses, const PointReal* pTexPoints, Int nTriangleSize, const Int16* pTriangles)
 	{
 		IDirect3DTexture9* pTex = ((D3D9RenderTarget*)pRT)->_pTex;
 
@@ -138,7 +138,7 @@ namespace CrabGui
 		static const UInt FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1;
 
 		// DX 的 UV 坐标修正
-		PointF uv_add = { 0.5f / pRT->getRenderSize().x, 0.5f / pRT->getRenderSize().y };
+		PointReal uv_add = { 0.5f / pRT->getRenderSize().x, 0.5f / pRT->getRenderSize().y };
 
 		Vertex2D vtx[256] = {0};
 		for (int i = 0; i < nPointSize; ++i)

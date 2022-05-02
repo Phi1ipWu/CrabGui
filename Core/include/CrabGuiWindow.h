@@ -41,8 +41,8 @@ namespace CrabGui
 		/// 设置脏矩型
 		void		setDirtyRect(const Rect* pDirtyRect);
 
-		/// 设置是否使用画布
-		void		setUseCanvas(UInt uCanvasCellSize);
+		/// 设置是否使用画布（0不使用，1简单矩形，>=2网格化）
+		void		setUseCanvas(UInt uGridSize);
 
 		/// 是否使用画布
 		Bool		isUseCanvas() const;
@@ -374,7 +374,7 @@ namespace CrabGui
 		String			_strName;
 		Point			_ptPos;
 		Point			_ptSize;
-		Point			_ptCanvasCellSize;
+		Point			_ptGridSize;	// 网格分割块大小
 
 		UInt			_uBitState;
 		UInt8			_u8ZLayer;
