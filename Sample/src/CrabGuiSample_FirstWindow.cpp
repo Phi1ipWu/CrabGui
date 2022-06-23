@@ -29,8 +29,8 @@ namespace CrabGui
 			//_testRBTree();
 			//return True;
 
-			_testConvertPNG();
-			return True;
+			//_testConvertPNG();
+			//return True;
 			
 			//_testBatchConvertJPG();
 			//return True;
