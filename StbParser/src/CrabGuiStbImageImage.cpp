@@ -158,16 +158,21 @@ namespace CrabGui
 	{
 		if (!isLoaded())
 			return False;
-		
+
+		Bool bSuccess = False;
+		_convertBGRAtoRGBA();
+
 		switch (eFileFormat)
 		{
 			case IFF_BMP:
-				return stbi_write_bmp(pszFileName, _ptImgSize.x, _ptImgSize.y, _nImgComp, _pImgData) != 0;
+				bSuccess = stbi_write_bmp(pszFileName, _ptImgSize.x, _ptImgSize.y, _nImgComp, _pImgData) != 0;
 			case IFF_JPG:
-				return stbi_write_jpg(pszFileName, _ptImgSize.x, _ptImgSize.y, _nImgComp, _pImgData, 0) != 0;
+				bSuccess = stbi_write_jpg(pszFileName, _ptImgSize.x, _ptImgSize.y, _nImgComp, _pImgData, 0) != 0;
 			case IFF_PNG:
-				return stbi_write_png(pszFileName, _ptImgSize.x, _ptImgSize.y, _nImgComp, _pImgData, 0) != 0;
+				bSuccess = stbi_write_png(pszFileName, _ptImgSize.x, _ptImgSize.y, _nImgComp, _pImgData, 0) != 0;
 		}
+
+		_convertBGRAtoRGBA();
 
 		return False;
 	}
