@@ -29,7 +29,7 @@ namespace CrabGui
 			//_testRBTree();
 			//return True;
 
-			//_testConvertPNG();
+			_testConvertPNG();
 			//return True;
 			
 			//_testBatchConvertJPG();
@@ -382,12 +382,16 @@ namespace CrabGui
 */
 		// 测试图片，白色变成Alpha通道
 		Image* pImage = _pParser->createImage();
+		FILE* fpLua   = fopen("E:/map.lua", "w");
+		fputs("local map_alpha = {\n", fpLua);
+
 		if (pImage->loadFromFile("E:/map.png"))
 		{
 			Point ptPos;
 			Point ptSize = pImage->getSize();
 			for (ptPos.y = 0; ptPos.y < ptSize.y; ++ptPos.y)
 			{
+				fputs("\n    ", fpLua);
 				for (ptPos.x = 0; ptPos.x < ptSize.x; ++ptPos.x)
 				{
 					Color cColor = pImage->getColor(ptPos);
@@ -395,10 +399,14 @@ namespace CrabGui
 					{
 						pImage->setColor(ptPos, cColor & 0x00FFFFFF);
 					}
+
+					fprintf(fpLua, "%d,", (cColor & 0x00FFFFFF) == 0x00FFFFFF);
 				}
 			}
 			pImage->saveToFile(IFF_PNG, "E:/map1.png", 0, 0);
 		}
+		fputs("}\n\nreturn map_alpha", fpLua);
+		fclose(fpLua);
 		_pParser->destroyImage(pImage);
 	}
 
