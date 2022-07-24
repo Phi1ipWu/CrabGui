@@ -29,7 +29,7 @@ namespace CrabGui
 			//_testRBTree();
 			//return True;
 
-			//_testConvertPNG();
+			_testConvertPNG();
 			//return True;
 			
 			//_testBatchConvertJPG();
@@ -388,31 +388,35 @@ namespace CrabGui
 			Point ptSize = pImage->getSize();
 
 			FILE* fpLua   = fopen("E:/map.lua", "w");
-			fprintf(fpLua, "local map_alpha = {\n  width = %d,\n  height = %d,\n  alpha = ", ptSize.x, ptSize.y);
+			fprintf(fpLua, "local map_alpha = {\n  width = %d,\n  height = %d,\n  alpha = {", ptSize.x, ptSize.y);
 
 			for (ptPos.y = 0; ptPos.y < ptSize.y; ++ptPos.y)
 			{
 				Int nAlpha = 0;
-				fputs("\n  ", fpLua);
+				fprintf(fpLua, "\n[%4d] = {", ptSize.y - ptPos.y - 1);//fprintf(fpLua, "\n[%4d] = \'", ptPos.y + 1);
 				for (ptPos.x = 0; ptPos.x < ptSize.x; ++ptPos.x)
 				{
 					Color cColor = pImage->getColor(ptPos);
-					if ((cColor & 0x00FFFFFF) == 0x00FFFFFF)
+					if ((cColor & 0x00FFFFFF) == 0x00FFFFFF)	// black => alpha
 					{
-						pImage->setColor(ptPos, cColor & 0x00FFFFFF);
+						cColor &= 0x00FFFFFF;
+						pImage->setColor(ptPos, cColor);
 					}
-
+					/*
 					nAlpha = (nAlpha << 1) | ((cColor & 0x00FFFFFF) == 0x00FFFFFF);
-					if (ptPos.x % 32 == 31 || ptPos.x == ptSize.x - 1)
+					//if (ptPos.x % 32 == 31 || ptPos.x == ptSize.x - 1)
 					{
 						fprintf(fpLua, "%d,", nAlpha);
 						nAlpha = 0;
 					}
+					*/
+					fprintf(fpLua, "%u%c", cColor, ptPos.x < ptSize.x - 1 ? ',' : '\0');
 				}
+				fprintf(fpLua, "},");//fprintf(fpLua, "\',");
 			}
 			pImage->saveToFile(IFF_PNG, "E:/map1.png", 0, 0);
 
-			fputs("\n}\n\nreturn map_alpha", fpLua);
+			fputs("}\n}\n\nreturn map_alpha", fpLua);
 			fclose(fpLua);
 		}
 		_pParser->destroyImage(pImage);

@@ -618,3 +618,5 @@ Core/obj/Debug/link.7648.read.1.tlog
 Core/obj/Debug/link.7648.write.1.tlog
 *.tlog
 *.cache
+ipch/crabguisample_firstwindow-e0849a51/crabguisample_firstwindow_d-aaa6375c.ipch
+Core/obj/Debug/CrabGuiMesh.obj
