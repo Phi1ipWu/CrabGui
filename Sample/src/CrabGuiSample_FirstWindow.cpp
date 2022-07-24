@@ -387,13 +387,13 @@ namespace CrabGui
 			Point ptPos;
 			Point ptSize = pImage->getSize();
 
-			FILE* fpLua   = fopen("E:/map.lua", "w");
-			fprintf(fpLua, "local map_alpha = {\n  width = %d,\n  height = %d,\n  alpha = {", ptSize.x, ptSize.y);
+			FILE* fpLua   = fopen("E:/map_pic.lua", "w");
+			fprintf(fpLua, "local map_pic = {\n  width = %d,\n  height = %d,\n  buffer = {", ptSize.x, ptSize.y);
 
 			for (ptPos.y = 0; ptPos.y < ptSize.y; ++ptPos.y)
 			{
 				Int nAlpha = 0;
-				fprintf(fpLua, "\n[%4d] = {", ptSize.y - ptPos.y - 1);//fprintf(fpLua, "\n[%4d] = \'", ptPos.y + 1);
+				fprintf(fpLua, "\n[%4d] = {", ptSize.y - ptPos.y);//fprintf(fpLua, "\n[%4d] = \'", ptPos.y + 1);
 				for (ptPos.x = 0; ptPos.x < ptSize.x; ++ptPos.x)
 				{
 					Color cColor = pImage->getColor(ptPos);
@@ -410,13 +410,13 @@ namespace CrabGui
 						nAlpha = 0;
 					}
 					*/
-					fprintf(fpLua, "%u%c", cColor, ptPos.x < ptSize.x - 1 ? ',' : '\0');
+					fprintf(fpLua, "%u,", cColor);
 				}
 				fprintf(fpLua, "},");//fprintf(fpLua, "\',");
 			}
 			pImage->saveToFile(IFF_PNG, "E:/map1.png", 0, 0);
 
-			fputs("}\n}\n\nreturn map_alpha", fpLua);
+			fputs("}\n}\n\nreturn map_pic", fpLua);
 			fclose(fpLua);
 		}
 		_pParser->destroyImage(pImage);
