@@ -387,7 +387,7 @@ namespace CrabGui
 			Point ptPos;
 			Point ptSize = pImage->getSize();
 
-			FILE* fpLua   = fopen("E:/map_pic.lua", "w");
+			FILE* fpLua   = fopen("E:/map1_pic.lua", "w");
 			fprintf(fpLua, "local map_pic = {\n  width = %d,\n  height = %d,\n  buffer = {", ptSize.x, ptSize.y);
 
 			for (ptPos.y = 0; ptPos.y < ptSize.y; ++ptPos.y)
@@ -413,6 +413,7 @@ namespace CrabGui
 
 					// swap color (ARGB -> RGBA)
 					cColor = ((cColor & 0xFF000000) >> 24) | ((cColor & 0x00FFFFFF) << 8);
+					//cColor = ((cColor & 0xFF000000) >> 24) | ((cColor & 0x00FF0000) >> 8) | ((cColor & 0x0000FF00) << 8) | ((cColor & 0x000000FF) << 24);
 					fprintf(fpLua, "%u,", cColor);
 				}
 				fprintf(fpLua, "},");//fprintf(fpLua, "\',");
