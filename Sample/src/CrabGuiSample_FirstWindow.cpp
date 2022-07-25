@@ -399,7 +399,7 @@ namespace CrabGui
 					Color cColor = pImage->getColor(ptPos);
 					if ((cColor & 0x00FFFFFF) == 0x00FFFFFF)	// black => alpha
 					{
-						cColor &= 0x00FFFFFF;
+						cColor = 0;
 						pImage->setColor(ptPos, cColor);
 					}
 					/*
@@ -410,6 +410,9 @@ namespace CrabGui
 						nAlpha = 0;
 					}
 					*/
+
+					// swap color (ARGB -> RGBA)
+					cColor = ((cColor & 0xFF000000) >> 24) | ((cColor & 0x00FFFFFF) << 8);
 					fprintf(fpLua, "%u,", cColor);
 				}
 				fprintf(fpLua, "},");//fprintf(fpLua, "\',");
