@@ -413,12 +413,12 @@ namespace CrabGui
 
 					// swap color (ARGB -> RGBA)
 					UInt a = (cColor & 0xFF000000) >> 24;
-					UInt b = (cColor & 0x00FF0000) >> 16;
+					UInt r = (cColor & 0x00FF0000) >> 16;
 					UInt g = (cColor & 0x0000FF00) >> 8;
-					UInt r = (cColor & 0x000000FF);
+					UInt b = (cColor & 0x000000FF);
 					//UInt cc = r << 24 | g << 16 | b << 8 | a;
-					UInt cc = r << 24 | g << 16 | b << 8 | a;
-					fprintf(fpLua, "%u,", cColor);
+					UInt cc = a << 24 | b << 16 | g << 8 | r;
+					fprintf(fpLua, "%u,", cc);
 				}
 				fprintf(fpLua, "},");
 			}
