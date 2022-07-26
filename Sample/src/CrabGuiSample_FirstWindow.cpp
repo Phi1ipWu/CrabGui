@@ -393,7 +393,7 @@ namespace CrabGui
 			for (ptPos.y = 0; ptPos.y < ptSize.y; ++ptPos.y)
 			{
 				Int nAlpha = 0;
-				fprintf(fpLua, "\n[%4d] = {", ptSize.y - ptPos.y);//fprintf(fpLua, "\n[%4d] = \'", ptPos.y + 1);
+				fprintf(fpLua, "\n[%4d] = {", ptSize.y - ptPos.y);
 				for (ptPos.x = 0; ptPos.x < ptSize.x; ++ptPos.x)
 				{
 					Color cColor = pImage->getColor(ptPos);
@@ -412,12 +412,32 @@ namespace CrabGui
 					*/
 
 					// swap color (ARGB -> RGBA)
-					cColor = ((cColor & 0xFF000000) >> 24) | ((cColor & 0x00FFFFFF) << 8);
-					//cColor = ((cColor & 0xFF000000) >> 24) | ((cColor & 0x00FF0000) >> 8) | ((cColor & 0x0000FF00) << 8) | ((cColor & 0x000000FF) << 24);
+					UInt a = (cColor & 0xFF000000) >> 24;
+					UInt b = (cColor & 0x00FF0000) >> 16;
+					UInt g = (cColor & 0x0000FF00) >> 8;
+					UInt r = (cColor & 0x000000FF);
+					//UInt cc = r << 24 | g << 16 | b << 8 | a;
+					UInt cc = r << 24 | g << 16 | b << 8 | a;
 					fprintf(fpLua, "%u,", cColor);
 				}
-				fprintf(fpLua, "},");//fprintf(fpLua, "\',");
+				fprintf(fpLua, "},");
 			}
+/*
+			fprintf(fpLua, "},\n\nbyte_buffer = {");
+
+			for (ptPos.y = 0; ptPos.y < ptSize.y; ++ptPos.y)
+			{
+				Int nAlpha = 0;
+				fprintf(fpLua, "\n[%4d] = {", ptSize.y - ptPos.y);//fprintf(fpLua, "\n[%4d] = \'", ptPos.y + 1);
+				for (ptPos.x = 0; ptPos.x < ptSize.x; ++ptPos.x)
+				{
+					Color cColor = pImage->getColor(ptPos);
+					fprintf(fpLua, "%d,%d,%d,%d,", ((cColor & 0xFF000000) >> 24), ((cColor & 0xFF0000) >> 16), ((cColor & 0xFF00) >> 8), ((cColor & 0xFF)));
+
+				}
+				fprintf(fpLua, "},");
+			}
+*/
 			pImage->saveToFile(IFF_PNG, "E:/map1.png", 0, 0);
 
 			fputs("}\n}\n\nreturn map_pic", fpLua);
