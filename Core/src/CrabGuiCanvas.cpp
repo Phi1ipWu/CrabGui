@@ -48,6 +48,8 @@ namespace CrabGui
 			if (ptSize.isZero())
 				return;
 
+			Real rScale = 10.0f;
+
 			if (_pGridVertices && _pGridTexPoints && _pGridTriangles)
 			{
 				Real r = 0.0f;
@@ -66,7 +68,7 @@ namespace CrabGui
 			else
 			{
 				Rect rcTex(0, 0, ptSize.x, ptSize.y);
-				Rect rcScreen(ptPos.x, ptPos.y, ptPos.x + ptSize.x, ptPos.y + ptSize.y);
+				Rect rcScreen(ptPos.x, ptPos.y, ptPos.x + ptSize.x * rScale, ptPos.y + ptSize.y * rScale);
 				System::getSingletonPtr()->getRenderer()->renderRenderTarget(_pRenderTarget, 0xFFFFFFFF, rcTex, rcScreen);
 			}
 		}

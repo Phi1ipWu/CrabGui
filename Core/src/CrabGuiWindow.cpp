@@ -120,6 +120,7 @@ namespace CrabGui
 	/// 设置是否使用画布（0不使用，1简单矩形，>=2网格化）
 	void Window::setUseCanvas(UInt uGridSize)
 	{
+		//uGridSize = 1;	// only for test
 		_ptGridSize.setPoint((Int16)uGridSize, (Int16)uGridSize);
 
 		if (uGridSize > 0)
