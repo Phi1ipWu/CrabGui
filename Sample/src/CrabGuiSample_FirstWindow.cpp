@@ -29,11 +29,14 @@ namespace CrabGui
 			//_testRBTree();
 			//return True;
 
-			//_testClipPNG();
+			_testConvertPNG();
+			//return True;
+			
+			//_testBatchConvertJPG();
 			//return True;
 
-			//_testConvertPNG();
-			//_testBatchConvertJPG();
+			//_testClipPNG();
+			//return True;
 		}
 
 
@@ -352,25 +355,8 @@ namespace CrabGui
 
 	void SampleFirstWindow::_testConvertPNG()
 	{
-		//// 测试图片，洋红变成Alpha通道
-		//Image* pImage = _pParser->createImage();
-		//if (pImage->loadFromFile("D:/Works/Mobile/cocos2d-2.0-x-2.0.4/MobileTest/Resources/Male.png"))
-		//{
-		//	Point ptPos(0, 0), ptSize = pImage->getSize();
-		//	for (ptPos.y = 0; ptPos.y < ptSize.y; ++ptPos.y)
-		//	{
-		//		for (ptPos.x = 0; ptPos.x < ptSize.x; ++ptPos.x)
-		//		{
-		//			Color cColor = pImage->getColor(ptPos);
-		//			if ((cColor & 0xFFFFFF) == 0xFF00FF)
-		//				pImage->setColor(ptPos, cColor & 0xFFFFFF);
-		//		}
-		//	}
-		//	pImage->saveAsPNG("D:/Works/Mobile/cocos2d-2.0-x-2.0.4/MobileTest/Resources/Male.png", 0, 0);
-		//}
-		//_pParser->destroyImage(pImage);
-
-		// 测试图片，裁减，缩放
+/*
+		// 测试图片，洋红转Alpha
 		Image* pImage = _pParser->createImage();
 		if (pImage->loadFromFile("D:/Works/Mobile/Pocker/resource/textures/table.png"))
 		{
@@ -393,12 +379,78 @@ namespace CrabGui
 			pImage->saveToFile(IFF_PNG, "D:/Works/Mobile/Pocker/client/projects/Pocker/Resources/table.png", 0, &ptResize);
 		}
 		_pParser->destroyImage(pImage);
+*/
+		// 测试图片，白色变成Alpha通道
+		Image* pImage = _pParser->createImage();
+		if (pImage->loadFromFile("E:/map.png"))
+		{
+			Point ptPos;
+			Point ptSize = pImage->getSize();
+
+			FILE* fpLua   = fopen("E:/map1_pic.lua", "w");
+			fprintf(fpLua, "local map_pic = {\n  width = %d,\n  height = %d,\n  buffer = {", ptSize.x, ptSize.y);
+
+			for (ptPos.y = 0; ptPos.y < ptSize.y; ++ptPos.y)
+			{
+				Int nAlpha = 0;
+				fprintf(fpLua, "\n[%4d] = {", ptSize.y - ptPos.y);
+				for (ptPos.x = 0; ptPos.x < ptSize.x; ++ptPos.x)
+				{
+					Color cColor = pImage->getColor(ptPos);
+					if ((cColor & 0x00FFFFFF) == 0x00FFFFFF)	// black => alpha
+					{
+						cColor = 0;
+						pImage->setColor(ptPos, cColor);
+					}
+					/*
+					nAlpha = (nAlpha << 1) | ((cColor & 0x00FFFFFF) == 0x00FFFFFF);
+					//if (ptPos.x % 32 == 31 || ptPos.x == ptSize.x - 1)
+					{
+						fprintf(fpLua, "%d,", nAlpha);
+						nAlpha = 0;
+					}
+					*/
+
+					// swap color (ARGB -> RGBA)
+					UInt a = (cColor & 0xFF000000) >> 24;
+					UInt r = (cColor & 0x00FF0000) >> 16;
+					UInt g = (cColor & 0x0000FF00) >> 8;
+					UInt b = (cColor & 0x000000FF);
+					//UInt cc = r << 24 | g << 16 | b << 8 | a;
+					UInt cc = a << 24 | b << 16 | g << 8 | r;
+					fprintf(fpLua, "%u,", cc);
+				}
+				fprintf(fpLua, "},");
+			}
+/*
+			fprintf(fpLua, "},\n\nbyte_buffer = {");
+
+			for (ptPos.y = 0; ptPos.y < ptSize.y; ++ptPos.y)
+			{
+				Int nAlpha = 0;
+				fprintf(fpLua, "\n[%4d] = {", ptSize.y - ptPos.y);//fprintf(fpLua, "\n[%4d] = \'", ptPos.y + 1);
+				for (ptPos.x = 0; ptPos.x < ptSize.x; ++ptPos.x)
+				{
+					Color cColor = pImage->getColor(ptPos);
+					fprintf(fpLua, "%d,%d,%d,%d,", ((cColor & 0xFF000000) >> 24), ((cColor & 0xFF0000) >> 16), ((cColor & 0xFF00) >> 8), ((cColor & 0xFF)));
+
+				}
+				fprintf(fpLua, "},");
+			}
+*/
+			pImage->saveToFile(IFF_PNG, "E:/map1.png", 0, 0);
+
+			fputs("}\n}\n\nreturn map_pic", fpLua);
+			fclose(fpLua);
+		}
+		_pParser->destroyImage(pImage);
 	}
 
 
 	void SampleFirstWindow::_testClipPNG()
 	{
-		// 测试图片，洋红变成Alpha通道
+
+		// 测试图片，裁减，缩放
 		Image* pImage = _pParser->createImage();
 		if (pImage->loadFromFile("D:/Works/Mobile/cocos2d-2.0-x-2.0.4/MobileTest/Resources/Male.png"))
 		{
@@ -487,6 +539,7 @@ namespace CrabGui
 			pTexture->saveToFile(strFileName.getStrPtr());
 		}
 	}
+
 }	// end namespace
 
 
