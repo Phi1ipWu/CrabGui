@@ -618,3 +618,4 @@ Core/obj/Debug/link.7648.read.1.tlog
 Core/obj/Debug/link.7648.write.1.tlog
 *.tlog
 *.cache
+*.obj
