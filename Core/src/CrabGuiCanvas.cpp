@@ -48,6 +48,10 @@ namespace CrabGui
 			if (ptSize.isZero())
 				return;
 
+			Real rScale = 1.0f;
+			ptSize.x *= rScale;
+			ptSize.y *= rScale;
+
 			if (_pGridVertices && _pGridTexPoints && _pGridTriangles)
 			{
 				Real r = 0.0f;

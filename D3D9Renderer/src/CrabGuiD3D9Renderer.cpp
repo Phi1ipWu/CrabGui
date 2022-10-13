@@ -51,8 +51,11 @@ namespace CrabGui
 		_pDev->SetTextureStageState(0, D3DTSS_ALPHAOP,		D3DTOP_MODULATE);
 
 		// 双线过滤
-		_pDev->SetSamplerState(0, D3DSAMP_MINFILTER,		D3DTEXF_LINEAR);
-		_pDev->SetSamplerState(0, D3DSAMP_MAGFILTER,		D3DTEXF_LINEAR);
+		//_pDev->SetSamplerState(0, D3DSAMP_MINFILTER,		D3DTEXF_LINEAR);
+		//_pDev->SetSamplerState(0, D3DSAMP_MAGFILTER,		D3DTEXF_LINEAR);
+		// 不插值
+		_pDev->SetSamplerState(0, D3DSAMP_MINFILTER,		D3DTEXF_POINT);
+		_pDev->SetSamplerState(0, D3DSAMP_MAGFILTER,		D3DTEXF_POINT);
 
 		// 不使用颜色混合
 		_pDev->SetTextureStageState(1, D3DTSS_COLOROP,		D3DTOP_DISABLE);
