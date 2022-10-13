@@ -11,43 +11,46 @@ namespace CrabGui
 	{
 	public:
 		Mesh();
-		Mesh(UInt uVertexNum, UInt uTriangleNum);
+		Mesh(UInt uVertexSize, UInt uTriangleSize);
 		virtual ~Mesh();
 
 		/// 清除数据
 		void    clear();
 
-		/// 获取点个数
-		UInt 	getVertexNum();
+		/// 设置顶点个数
+		void 	setVertexSize(UInt uVertexSize);
 
-		/// 获取
+		/// 设置顶点
+		Bool 	setVertex(UInt uVertexIndex, const PointReal* pVertex, const PointReal* pTexVertex1, const PointReal* pTexVertex2);
+
+		/// 获取顶点个数
+		UInt 	getVertexSize();
+
+		/// 获取顶点
 		const PointReal* getVertices();
 
-		/// 设置点个数
-		void 	setVertexNum(UInt uVertexNum);
-
-		/// 添加点
-		Bool 	setVertex(UInt uVertexIndex, const PointReal* pPoint, const PointReal* pTexPoint1, const PointReal* pTexPoint2);
+		/// 获取所有纹理UV
+		const PointReal* getTexVertices();
 
 		/// 设置三角形个数
-		void 	setTriangleNum(UInt uTriangleNum);
-
-		/// 设置单个三角形
-		Bool 	setTriangle(UInt uTriangleIndex, Int16 sPoint1, Int16 sPoint2, Int16 sPoint3);
-
-
-	public:
-
+		void 	setTriangleSize(UInt uTriangleSize);
 		
+		/// 设置单个三角形
+		Bool 	setTriangle(UInt uTriangleIndex, Int16 sIndex1, Int16 sIndex2, Int16 sIndex3);
 
+		/// 获取三角形个数
+		UInt	getTriangleSize();
+
+		/// 获取三角形
+		const Int16* getTriangles();
 
 
 	protected:
-		UInt  			_uVertexNum;
+		UInt  			_uVertexSize;
 		PointReal*		_pVertices;
 		PointReal*		_pTexVertices;
 
-		UInt 			_uTriangleNum;
+		UInt 			_uTriangleSize;
 		Int16*			_pTriangles;
 	};
 
