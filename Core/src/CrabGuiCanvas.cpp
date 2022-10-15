@@ -40,7 +40,7 @@ namespace CrabGui
 	// 渲染相关
 
 
-	// 渲染（可以传入效果）
+	// 渲染（原点）
 	void Canvas::render(const Point& ptPos)
 	{
 		if (_pRenderTarget)
@@ -78,6 +78,7 @@ namespace CrabGui
 	}
 
 
+	// 渲染（网格）
 	void Canvas::render(const Mesh* pMesh)
 	{
 		System::getSingletonPtr()->getRenderer()->renderRenderTargetVertices(

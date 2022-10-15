@@ -234,7 +234,8 @@ namespace CrabGui
 			if (_pCanvas->getDirtyRect().isZero())
 			{
 				// 画布不脏，渲染完即结束
-				_pCanvas->render(_ptPos);
+				const Mesh* pMesh = getMesh();
+				pMesh ? _pCanvas->render(pMesh) : _pCanvas->render(_ptPos);
 				return False;
 			}
 
@@ -292,7 +293,8 @@ namespace CrabGui
 			_pCanvas->unbind();
 
 			// 画布脏，先更新画布再渲染
-			_pCanvas->render(_ptPos);
+			const Mesh* pMesh = getMesh();
+			pMesh ? _pCanvas->render(pMesh) : _pCanvas->render(_ptPos);
 
 			// 渲染完成，脏矩形清空
 			_pCanvas->setDirtyRectZero();
