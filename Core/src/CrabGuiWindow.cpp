@@ -18,7 +18,8 @@ namespace CrabGui
 
 	Window::Window(System* pSystem, UInt uID)
 		: _pSystem(pSystem), _uID(uID)
-		, _pCanvas(0), _pQueueChilds(0), _pWndParent(0), _pEventHandle(0)
+		, _pCanvas(0), _pMesh(0)
+		, _pQueueChilds(0), _pWndParent(0), _pEventHandle(0)
 		, _uBitState(0), _u8ZLayer(ZLayerDefault), _u8TabStop(0)
 	{
 		setVisible(True);
@@ -29,6 +30,7 @@ namespace CrabGui
 	{
 		CrabDelete(_pQueueChilds);
 		CrabDelete(_pCanvas);
+		CrabDelete(_pMesh);
 
 		_pSystem->log(LL_High, "DestroyWindow: %s", _strName.getStrPtr());
 	}
@@ -128,12 +130,15 @@ namespace CrabGui
 		{
 			if (!_pCanvas)
 				_pCanvas = CrabNew(Canvas)();
+			//if (uGridSize > 1)
+			//	_pMesh = CrabNew(Mesh)();
 
 			setDirtyRect(0);
 		}
 		else
 		{
 			CrabDelete(_pCanvas);
+			CrabDelete(_pMesh);
 		}
 	}
 
@@ -213,7 +218,7 @@ namespace CrabGui
 	// 获取网格
 	const Mesh*	Window::getMesh() const
 	{
-		return 0;	// 默认没有
+		return _pMesh;
 	}
 
 

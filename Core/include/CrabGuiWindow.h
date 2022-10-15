@@ -367,6 +367,8 @@ namespace CrabGui
 		UInt			_uID;
 
 		Canvas*			_pCanvas;			// 窗体画布指针
+		Mesh*			_pMesh;				// 窗体网格
+
 		Queue*			_pQueueChilds;		// 子窗体队列
 		Window*			_pWndParent;		// 父窗体指针
 
