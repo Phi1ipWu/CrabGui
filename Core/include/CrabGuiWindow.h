@@ -9,6 +9,7 @@ namespace CrabGui
 	class System;
 	class Queue;
 	class Canvas;
+	class Mesh;
 
 	struct EventDesc;
 	class EventHandle;
@@ -54,25 +55,28 @@ namespace CrabGui
 	public:	// 渲染相关
 
 		/// 获得鼠标指针
-		virtual UInt	getMouseCursor() const;
+		virtual UInt		getMouseCursor() const;
 
 		/// 获得窗体矩形
-		virtual void	getWindowRect(Rect& rcWindow) const;
+		virtual void		getWindowRect(Rect& rcWindow) const;
 
 		/// 逝去时间
-		virtual Bool	update(UInt uElapse);
+		virtual Bool		update(UInt uElapse);
 
 		/// 窗体裁减
-		virtual void	setClipRect(Canvas* pCanvas, const Point& ptBase, const Rect& rcWindowClip);
+		virtual void		setClipRect(Canvas* pCanvas, const Point& ptBase, const Rect& rcWindowClip);
+
+		/// 获取网格
+		virtual const Mesh*	getMesh() const;
 
 		/// 准备渲染
-		virtual Bool	preRender(Canvas*& pCanvas, Point& ptBase);
+		virtual Bool		preRender(Canvas*& pCanvas, Point& ptBase);
 
 		/// 结束渲染
-		virtual void	postRender(Canvas* pCanvas, const Point& ptBase);
+		virtual void		postRender(Canvas* pCanvas, const Point& ptBase);
 
 		/// 渲染
-		virtual void	render(Canvas* pCanvas, const Point& ptBase);
+		virtual void		render(Canvas* pCanvas, const Point& ptBase);
 
 
 	public:	// 事件相关

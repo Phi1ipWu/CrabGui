@@ -68,21 +68,21 @@ namespace CrabGui
 
 
 	// 获取点个数
-	UInt Mesh::getVertexSize()
+	UInt Mesh::getVertexSize() const
 	{
 		return _uVertexSize;
 	}
 
 
 	// 获取顶点
-	const PointReal* Mesh::getVertices()
+	const PointReal* Mesh::getVertices() const
 	{
 		return _pVertices;
 	}
 
 
 	// 获取所有纹理UV
-	const PointReal* Mesh::getTexVertices()
+	const PointReal* Mesh::getTexVertices() const
 	{
 		return _pTexVertices;
 	}
@@ -116,9 +116,15 @@ namespace CrabGui
 
 
 	// 获取三角形个数
-	UInt Mesh::getTriangleSize()
+	UInt Mesh::getTriangleSize() const
 	{
 		return _uTriangleSize;
 	}
 
+
+	// 获取三角形
+	const Int16* Mesh::getTriangles() const
+	{
+		return _pTriangles;
+	}
 }

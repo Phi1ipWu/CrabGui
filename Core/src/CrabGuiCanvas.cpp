@@ -8,6 +8,7 @@
 #include "CrabGuiTexture.h"
 #include "CrabGuiRenderTarget.h"
 #include "CrabGuiFontTexture.h"
+#include "CrabGuiMesh.h"
 
 #include <string.h>
 
@@ -40,7 +41,7 @@ namespace CrabGui
 
 
 	// 渲染（可以传入效果）
-	void Canvas::render(const Point& ptPos, void* pFadeout)
+	void Canvas::render(const Point& ptPos)
 	{
 		if (_pRenderTarget)
 		{
@@ -74,6 +75,19 @@ namespace CrabGui
 				System::getSingletonPtr()->getRenderer()->renderRenderTarget(_pRenderTarget, 0xFFFFFFFF, rcTex, rcScreen);
 			}
 		}
+	}
+
+
+	void Canvas::render(const Mesh* pMesh)
+	{
+		System::getSingletonPtr()->getRenderer()->renderRenderTargetVertices(
+			_pRenderTarget,
+			pMesh->getVertexSize(),
+			pMesh->getVertices(),
+			0,
+			pMesh->getTexVertices(),
+			pMesh->getTriangleSize() * 3,
+			pMesh->getTriangles());
 	}
 
 

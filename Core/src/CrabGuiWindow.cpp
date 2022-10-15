@@ -6,6 +6,7 @@
 #include "CrabGuiRenderer.h"
 #include "CrabGuiQueue.h"
 #include "CrabGuiCanvas.h"
+#include "CrabGuiMesh.h"
 #include "CrabGuiEventHandle.h"
 
 #include <string.h>		// memset
@@ -208,6 +209,13 @@ namespace CrabGui
 		_pSystem->getRenderer()->setScissorRect(True, rcScissor);
 	}
 
+	
+	// 获取网格
+	const Mesh*	Window::getMesh() const
+	{
+		return 0;	// 默认没有
+	}
+
 
 	// 准备渲染
 	Bool Window::preRender(Canvas*& pCanvas, Point& ptBase)
@@ -226,7 +234,7 @@ namespace CrabGui
 			if (_pCanvas->getDirtyRect().isZero())
 			{
 				// 画布不脏，渲染完即结束
-				_pCanvas->render(_ptPos, 0);
+				_pCanvas->render(_ptPos);
 				return False;
 			}
 
@@ -284,7 +292,7 @@ namespace CrabGui
 			_pCanvas->unbind();
 
 			// 画布脏，先更新画布再渲染
-			_pCanvas->render(_ptPos, 0);
+			_pCanvas->render(_ptPos);
 
 			// 渲染完成，脏矩形清空
 			_pCanvas->setDirtyRectZero();

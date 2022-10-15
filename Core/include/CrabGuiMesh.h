@@ -24,13 +24,13 @@ namespace CrabGui
 		Bool 	setVertex(UInt uVertexIndex, const PointReal* pVertex, const PointReal* pTexVertex1, const PointReal* pTexVertex2);
 
 		/// 获取顶点个数
-		UInt 	getVertexSize();
+		UInt 	getVertexSize() const;
 
 		/// 获取顶点
-		const PointReal* getVertices();
+		const PointReal* getVertices() const;
 
 		/// 获取所有纹理UV
-		const PointReal* getTexVertices();
+		const PointReal* getTexVertices() const;
 
 		/// 设置三角形个数
 		void 	setTriangleSize(UInt uTriangleSize);
@@ -39,10 +39,10 @@ namespace CrabGui
 		Bool 	setTriangle(UInt uTriangleIndex, Int16 sIndex1, Int16 sIndex2, Int16 sIndex3);
 
 		/// 获取三角形个数
-		UInt	getTriangleSize();
+		UInt	getTriangleSize() const;
 
 		/// 获取三角形
-		const Int16* getTriangles();
+		const Int16* getTriangles() const;
 
 
 	protected:

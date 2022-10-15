@@ -11,6 +11,7 @@ namespace CrabGui
 	class RenderTarget;
 	class Queue;
 	class Font;
+	class Mesh;
 
 
 	/// 画布
@@ -23,8 +24,11 @@ namespace CrabGui
 
 	public:	// 渲染相关
 
-		/// 渲染（可以传入效果）
-		void		render(const Point& ptPos, void* pFadeout);
+		/// 渲染（原点）
+		void		render(const Point& ptPos);
+
+		/// 渲染（网格）
+		void		render(const Mesh* pMesh);
 
 
 	public:	// 矩形裁减相关
