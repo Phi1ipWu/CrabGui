@@ -45,6 +45,18 @@ namespace CrabGui
 		const Int16* getTriangles() const;
 
 
+	public:
+
+		/// 设置平面
+		void	setPlane(Point ptGridSize, Point ptPos, Point ptSize);
+		
+		/// 获取平面顶点
+		Bool	getPlaneVertex(Point ptGridSize, Point ptPos, Point ptSize, UInt uIndex, PointReal* pVertex, PointReal* pTexVertex);
+
+		/// 设置圆
+		void	setCircle(UInt uFanSize, Point ptPos, Point ptSize);
+
+
 	protected:
 		UInt  			_uVertexSize;
 		PointReal*		_pVertices;

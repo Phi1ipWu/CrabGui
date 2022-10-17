@@ -130,8 +130,12 @@ namespace CrabGui
 		{
 			if (!_pCanvas)
 				_pCanvas = CrabNew(Canvas)();
-			//if (uGridSize > 1)
-			//	_pMesh = CrabNew(Mesh)();
+			if (false && uGridSize > 1)
+			{
+				CrabDelete(_pMesh);
+				_pMesh = CrabNew(Mesh);
+				_pMesh->setPlane(_ptGridSize, getPos(), getSize());
+			}
 
 			setDirtyRect(0);
 		}

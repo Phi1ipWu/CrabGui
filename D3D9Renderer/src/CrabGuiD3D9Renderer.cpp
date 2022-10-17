@@ -144,7 +144,8 @@ namespace CrabGui
 		PointReal uv_add = { 0.5f / pRT->getRenderSize().x, 0.5f / pRT->getRenderSize().y };
 
 		Vertex2D vtx[256] = {0};
-		for (int i = 0; i < nPointSize; ++i)
+		int nVertexSize = min(nPointSize, 256);
+		for (int i = 0; i < nVertexSize; ++i)
 		{
 			// 顶点信息
 			vtx[i].x = pPoints[i].x;

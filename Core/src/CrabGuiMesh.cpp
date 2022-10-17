@@ -127,4 +127,66 @@ namespace CrabGui
 	{
 		return _pTriangles;
 	}
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+	// 设置平面
+	void Mesh::setPlane(Point ptGridSize, Point ptPos, Point ptSize)
+	{
+		UInt uVertexSize = ptGridSize.getArea();
+		UInt uRectSize = (ptGridSize.y - 1) * (ptGridSize.x - 1);
+		setVertexSize(uVertexSize);
+		setTriangleSize(uRectSize * 2);
+
+		for (UInt i = 0; i < uVertexSize; ++i)
+		{
+			PointReal prVertex, prTexVertex;
+			getPlaneVertex(ptGridSize, ptPos, ptSize, i, &prVertex, &prTexVertex);
+			setVertex(i, &prVertex, &prTexVertex, 0);
+		}
+
+		for (UInt i = 0; i < uRectSize; ++i)
+		{
+			UInt uIndexLT = 0;
+			UInt uIndexRT = 1;
+			UInt uIndexLB = ptGridSize.x;
+			UInt uIndexRB = ptGridSize.x + 1;
+			setTriangle(i * 2 + 0, uIndexLT, uIndexRT, uIndexLB);
+			setTriangle(i * 2 + 1, uIndexLB, uIndexRT, uIndexRB);
+		}
+	}
+
+	
+	// 获取平面顶点
+	Bool Mesh::getPlaneVertex(Point ptGridSize, Point ptPos, Point ptSize, UInt uIndex, PointReal* pVertex, PointReal* pTexVertex)
+	{
+		if (uIndex >= ptGridSize.getArea())
+			return False;
+
+		UInt uGridX = uIndex % ptSize.y;
+		UInt uGridY = uIndex / ptSize.y;
+		Real rGridStepX = (Real)ptSize.x / ptGridSize.x;
+		Real rGridStepY = (Real)ptSize.y / ptGridSize.y;
+
+		if (pVertex)
+		{
+			pVertex->x = ptPos.x + uGridX * rGridStepX;
+			pVertex->y = ptPos.y + uGridY * rGridStepY;
+		}
+		if (pTexVertex)
+		{
+			pTexVertex->x = rGridStepX * uGridX;
+			pTexVertex->y = rGridStepY * uGridY;
+		}
+		return True;
+	}
+
+	
+	// 设置圆
+	void Mesh::setCircle(UInt uFanSize, Point ptPos, Point ptSize)
+	{
+	}
+
 }
