@@ -106,9 +106,9 @@ namespace CrabGui
 		if (uTriangleIndex < _uTriangleSize)
 		{
 			Int16* pTriangles = &_pTriangles[uTriangleIndex * 3];
-			*_pTriangles++ = sIndex1;
-			*_pTriangles++ = sIndex2;
-			*_pTriangles++ = sIndex3;
+			*pTriangles++ = sIndex1;
+			*pTriangles++ = sIndex2;
+			*pTriangles++ = sIndex3;
 			return True;
 		}
 		return False;
@@ -136,7 +136,7 @@ namespace CrabGui
 	void Mesh::setPlane(Point ptGridSize, Point ptPos, Point ptSize)
 	{
 		UInt uVertexSize = ptGridSize.getArea();
-		UInt uRectSize = (ptGridSize.y - 1) * (ptGridSize.x - 1);
+		UInt uRectSize   = (ptGridSize.y - 1) * (ptGridSize.x - 1);
 		setVertexSize(uVertexSize);
 		setTriangleSize(uRectSize * 2);
 
@@ -149,12 +149,12 @@ namespace CrabGui
 
 		for (UInt i = 0; i < uRectSize; ++i)
 		{
-			UInt uIndexLT = 0;
-			UInt uIndexRT = 1;
-			UInt uIndexLB = ptGridSize.x;
-			UInt uIndexRB = ptGridSize.x + 1;
-			setTriangle(i * 2 + 0, uIndexLT, uIndexRT, uIndexLB);
-			setTriangle(i * 2 + 1, uIndexLB, uIndexRT, uIndexRB);
+			Int16 sIndexLT = 0;
+			Int16 sIndexRT = 1;
+			Int16 sIndexLB = ptGridSize.x;
+			Int16 sIndexRB = ptGridSize.x + 1;
+			setTriangle(i * 2 + 0, sIndexLT, sIndexRT, sIndexLB);
+			setTriangle(i * 2 + 1, sIndexLB, sIndexRT, sIndexRB);
 		}
 	}
 
@@ -162,13 +162,14 @@ namespace CrabGui
 	// 获取平面顶点
 	Bool Mesh::getPlaneVertex(Point ptGridSize, Point ptPos, Point ptSize, UInt uIndex, PointReal* pVertex, PointReal* pTexVertex)
 	{
-		if (uIndex >= ptGridSize.getArea())
+		UInt uVertexSize = ptGridSize.getArea();
+		if (uIndex >= uVertexSize)
 			return False;
 
-		UInt uGridX = uIndex % ptSize.y;
-		UInt uGridY = uIndex / ptSize.y;
-		Real rGridStepX = (Real)ptSize.x / ptGridSize.x;
-		Real rGridStepY = (Real)ptSize.y / ptGridSize.y;
+		UInt uGridX = uIndex % ptGridSize.y;
+		UInt uGridY = uIndex / ptGridSize.y;
+		Real rGridStepX = (Real)ptSize.x / (ptGridSize.x - 1);
+		Real rGridStepY = (Real)ptSize.y / (ptGridSize.y - 1);
 
 		if (pVertex)
 		{
@@ -177,8 +178,8 @@ namespace CrabGui
 		}
 		if (pTexVertex)
 		{
-			pTexVertex->x = rGridStepX * uGridX;
-			pTexVertex->y = rGridStepY * uGridY;
+			pTexVertex->x = uGridX / (ptGridSize.x - 1);
+			pTexVertex->y = uGridY / (ptGridSize.y - 1);
 		}
 		return True;
 	}

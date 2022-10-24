@@ -123,16 +123,19 @@ namespace CrabGui
 	/// 设置是否使用画布（0不使用，1简单矩形，>=2网格化）
 	void Window::setUseCanvas(UInt uGridSize)
 	{
-		//uGridSize = 1;	// only for test
+		uGridSize = 2;	// only for test
 		_ptGridSize.setPoint((Int16)uGridSize, (Int16)uGridSize);
 
 		if (uGridSize > 0)
 		{
 			if (!_pCanvas)
-				_pCanvas = CrabNew(Canvas)();
-			if (false && uGridSize > 1)
 			{
-				CrabDelete(_pMesh);
+				_pCanvas = CrabNew(Canvas)();
+			}
+
+			CrabDelete(_pMesh);
+			if (uGridSize > 1)
+			{
 				_pMesh = CrabNew(Mesh);
 				_pMesh->setPlane(_ptGridSize, getPos(), getSize());
 			}
@@ -244,7 +247,15 @@ namespace CrabGui
 			{
 				// 画布不脏，渲染完即结束
 				const Mesh* pMesh = getMesh();
-				pMesh ? _pCanvas->render(pMesh) : _pCanvas->render(_ptPos);
+				if (pMesh)
+				{
+					_pMesh->setPlane(_ptGridSize, getPos(), getSize());
+					_pCanvas->render(pMesh);
+				}
+				else
+				{
+					_pCanvas->render(_ptPos);
+				}
 				return False;
 			}
 
