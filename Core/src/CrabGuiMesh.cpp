@@ -37,7 +37,7 @@ namespace CrabGui
 	}
 
 
-	// 设置点个数
+	// 设置顶点个数
 	void Mesh::setVertexSize(UInt uVertexSize)
 	{
 		if (!_pVertices || !_pTexVertices || _uVertexSize != uVertexSize)
@@ -53,13 +53,27 @@ namespace CrabGui
 	}
 
 
-	// 添加点
+	// 设置顶点
 	Bool Mesh::setVertex(UInt uVertexIndex, const PointReal* pVertex, const PointReal* pTexVertex1, const PointReal* pTexVertex2)
 	{
 		if (uVertexIndex < _uVertexSize)
 		{
 			_pVertices[uVertexIndex]	= *pVertex;
 			_pTexVertices[uVertexIndex] = *pTexVertex1;
+
+			return True;
+		}
+		return False;
+	}
+
+
+	// 获得顶点
+	Bool Mesh::getVertex(UInt uVertexIndex, PointReal* pVertex)
+	{
+		if (uVertexIndex < _uVertexSize)
+		{
+			if (pVertex)
+				*pVertex = _pVertices[uVertexIndex];
 
 			return True;
 		}
@@ -136,7 +150,7 @@ namespace CrabGui
 	void Mesh::setPlane(Point ptGridSize, Point ptPos, Point ptSize)
 	{
 		UInt uVertexSize = ptGridSize.getArea();
-		UInt uRectSize   = (ptGridSize.y - 1) * (ptGridSize.x - 1);
+		UInt uRectSize   = (ptGridSize.x - 1) * (ptGridSize.y - 1);
 		setVertexSize(uVertexSize);
 		setTriangleSize(uRectSize * 2);
 
@@ -149,10 +163,10 @@ namespace CrabGui
 
 		for (UInt i = 0; i < uRectSize; ++i)
 		{
-			Int16 sIndexLT = 0;
-			Int16 sIndexRT = 1;
-			Int16 sIndexLB = ptGridSize.x;
-			Int16 sIndexRB = ptGridSize.x + 1;
+			Int16 sIndexLT = i / (ptGridSize.x - 1) * (ptGridSize.x) + i % (ptGridSize.x - 1);
+			Int16 sIndexRT = sIndexLT + 1;
+			Int16 sIndexLB = sIndexLT + ptGridSize.x;
+			Int16 sIndexRB = sIndexLT + ptGridSize.x + 1;
 			setTriangle(i * 2 + 0, sIndexLT, sIndexRT, sIndexLB);
 			setTriangle(i * 2 + 1, sIndexLB, sIndexRT, sIndexRB);
 		}
@@ -178,8 +192,8 @@ namespace CrabGui
 		}
 		if (pTexVertex)
 		{
-			pTexVertex->x = uGridX / (ptGridSize.x - 1);
-			pTexVertex->y = uGridY / (ptGridSize.y - 1);
+			pTexVertex->x = (Real)uGridX / (ptGridSize.x - 1);
+			pTexVertex->y = (Real)uGridY / (ptGridSize.y - 1);
 		}
 		return True;
 	}

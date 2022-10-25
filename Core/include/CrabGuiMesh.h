@@ -23,6 +23,9 @@ namespace CrabGui
 		/// 设置顶点
 		Bool 	setVertex(UInt uVertexIndex, const PointReal* pVertex, const PointReal* pTexVertex1, const PointReal* pTexVertex2);
 
+		/// 获得顶点
+		Bool 	getVertex(UInt uVertexIndex, PointReal* pVertex);
+
 		/// 获取顶点个数
 		UInt 	getVertexSize() const;
 
