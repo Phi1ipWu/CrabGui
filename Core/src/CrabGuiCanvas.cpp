@@ -49,31 +49,9 @@ namespace CrabGui
 			if (ptSize.isZero())
 				return;
 
-			Real rScale = 1.0f;
-			ptSize.x *= rScale;
-			ptSize.y *= rScale;
-
-			if (_pGridVertices && _pGridTexPoints && _pGridTriangles)
-			{
-				Real r = 0.0f;
-				Real rSpring = 0.005f;
-				r = (Real)ptPos.x + 0;			_pGridVertices[0].x += (r - _pGridVertices[0].x) * rSpring;
-				r = (Real)ptPos.y + 0;			_pGridVertices[0].y += (r - _pGridVertices[0].y) * rSpring;
-				r = (Real)ptPos.x + ptSize.x;	_pGridVertices[1].x += (r - _pGridVertices[1].x) * rSpring;
-				r = (Real)ptPos.y + 0;			_pGridVertices[1].y += (r - _pGridVertices[1].y) * rSpring;
-				r = (Real)ptPos.x + 0;			_pGridVertices[2].x += (r - _pGridVertices[2].x) * rSpring;
-				r = (Real)ptPos.y + ptSize.y;	_pGridVertices[2].y += (r - _pGridVertices[2].y) * rSpring;
-				r = (Real)ptPos.x + ptSize.x;	_pGridVertices[3].x += (r - _pGridVertices[3].x) * rSpring;
-				r = (Real)ptPos.y + ptSize.y;	_pGridVertices[3].y += (r - _pGridVertices[3].y) * rSpring;
-
-				System::getSingletonPtr()->getRenderer()->renderRenderTargetVertices(_pRenderTarget, 4, _pGridVertices, 0, _pGridTexPoints, 6, _pGridTriangles);
-			}
-			else
-			{
-				Rect rcTex(0, 0, ptSize.x, ptSize.y);
-				Rect rcScreen(ptPos.x, ptPos.y, ptPos.x + ptSize.x, ptPos.y + ptSize.y);
-				System::getSingletonPtr()->getRenderer()->renderRenderTarget(_pRenderTarget, 0xFFFFFFFF, rcTex, rcScreen);
-			}
+			Rect rcTex(0, 0, ptSize.x, ptSize.y);
+			Rect rcScreen(ptPos.x, ptPos.y, ptPos.x + ptSize.x, ptPos.y + ptSize.y);
+			System::getSingletonPtr()->getRenderer()->renderRenderTarget(_pRenderTarget, 0xFFFFFFFF, rcTex, rcScreen);
 		}
 	}
 

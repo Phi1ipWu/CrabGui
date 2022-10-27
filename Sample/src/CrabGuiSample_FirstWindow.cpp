@@ -163,8 +163,8 @@ namespace CrabGui
 		_frmWnd1->setPropert("Text",	"我人有的和\\t主产不为这\\n工要在地一上是中国同\\n\\\\经以发了民");
 
 		// 必须要在设置大小后设置
-		UInt uCanvasCellSize = 10;
-		_frmWnd1->setUseCanvas(uCanvasCellSize);
+		UInt uCanvasGridSize = 10;
+		_frmWnd1->setUseCanvas(uCanvasGridSize);
 
 		UInt uPicRect_y[4] = {0, 20, 40, 214};
 		String strTemp;
@@ -206,7 +206,7 @@ namespace CrabGui
 		_frmWnd2->setPropert("Text",	"");
 
 		// 必须要在设置大小后设置
-		_frmWnd2->setUseCanvas(10);
+		_frmWnd2->setUseCanvas(uCanvasGridSize);
 
 		_edtText = (Editbox*)_pSystem->createWindow("Editbox");
 		_edtText->setParent(_frmWnd2);
