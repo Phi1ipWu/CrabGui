@@ -967,6 +967,12 @@ namespace CrabGui
 	}
 
 
+	// 获取CTRL/ALT/SHIFT/LBUTTON按键状态
+	UInt System::getCtrlKeyState() const
+	{
+		return _uCtrlKeyState;
+	}
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// 编辑器相关
 

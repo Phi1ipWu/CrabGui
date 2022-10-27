@@ -170,6 +170,9 @@ namespace CrabGui
 
 		const Point&	getScreenMousePos() const;
 
+		/// 获取CTRL/ALT/SHIFT/LBUTTON按键状态
+		UInt			getCtrlKeyState() const;
+
 
 	public:	// 编辑器相关
 

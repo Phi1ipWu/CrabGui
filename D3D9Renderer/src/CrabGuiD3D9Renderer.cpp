@@ -143,8 +143,8 @@ namespace CrabGui
 		// DX 的 UV 坐标修正
 		PointReal uv_add = { 0.5f / pRT->getRenderSize().x, 0.5f / pRT->getRenderSize().y };
 
-		Vertex2D vtx[256] = {0};
-		int nVertexSize = min(nPointSize, 256);
+		Vertex2D vtx[512] = {0};
+		int nVertexSize = min(nPointSize, sizeof(vtx) / sizeof(vtx[0]));
 		for (int i = 0; i < nVertexSize; ++i)
 		{
 			// 顶点信息

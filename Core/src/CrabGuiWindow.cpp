@@ -249,7 +249,27 @@ namespace CrabGui
 				const Mesh* pMesh = getMesh();
 				if (pMesh)
 				{
-					_pMesh->setPlane(_ptGridSize, getPos(), getSize());
+					//_pMesh->setPlane(_ptGridSize, _ptPos, _ptSize);
+
+					for (UInt i = 0; i < pMesh->getVertexSize(); ++i)
+					{
+						PointReal prOldVertex, prNewVertex, prTexVertex;
+						if (_pMesh->getVertex(i, &prOldVertex) && _pMesh->getPlaneVertex(_ptGridSize, _ptPos, _ptSize, i, &prNewVertex, &prTexVertex))
+						{
+							Real rSpring = 1.0f;
+							if (_pSystem->getMouseWindow() == this && (_pSystem->getCtrlKeyState() & CK_LButton))
+							{
+								//_pSystem->getDragWindow
+								rSpring = 0.2f;
+							}
+
+							PointReal prVertex;
+							prVertex.x = prOldVertex.x + (prNewVertex.x - prOldVertex.x) * rSpring;
+							prVertex.y = prOldVertex.y + (prNewVertex.y - prOldVertex.y) * rSpring;
+							_pMesh->setVertex(i, &prVertex, &prTexVertex, 0);
+						}
+					}
+
 					_pCanvas->render(pMesh);
 				}
 				else

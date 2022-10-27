@@ -180,7 +180,7 @@ namespace CrabGui
 			_stPresParams.SwapEffect       = D3DSWAPEFFECT_COPY;//D3DSWAPEFFECT_COPY;//D3DSWAPEFFECT_FLIP;//D3DSWAPEFFECT_DISCARD;
 			_stPresParams.BackBufferFormat = D3DFMT_UNKNOWN;
 			_stPresParams.BackBufferCount  = 1;
-			_stPresParams.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;//D3DPRESENT_INTERVAL_IMMEDIATE;//D3DPRESENT_INTERVAL_DEFAULT;
+			_stPresParams.PresentationInterval = D3DPRESENT_INTERVAL_ONE;//D3DPRESENT_INTERVAL_IMMEDIATE;//D3DPRESENT_INTERVAL_DEFAULT;
 		}
 		else
 		{
@@ -428,7 +428,6 @@ namespace CrabGui
 		case WM_MOUSEWHEEL:
 			ms_pSample->_pSystem->injectMouseWheel(Point(LOWORD(wParam), HIWORD(wParam)));
 			break;
-
 
 		case WM_SIZE:
 			ms_pSample->resize(LOWORD(lParam), HIWORD(lParam));
