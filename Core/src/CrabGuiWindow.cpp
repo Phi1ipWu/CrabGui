@@ -11,6 +11,7 @@
 
 #include <string.h>		// memset
 #include <stdlib.h>		// atoi
+#include <math.h>		// fabs
 
 
 namespace CrabGui
@@ -249,18 +250,18 @@ namespace CrabGui
 				const Mesh* pMesh = getMesh();
 				if (pMesh)
 				{
-					//_pMesh->setPlane(_ptGridSize, _ptPos, _ptSize);
-
+					Bool isDraging = (_pSystem->getMouseWindow() == this && (_pSystem->getCtrlKeyState() & CK_LButton));
 					for (UInt i = 0; i < pMesh->getVertexSize(); ++i)
 					{
 						PointReal prOldVertex, prNewVertex, prTexVertex;
 						if (_pMesh->getVertex(i, &prOldVertex) && _pMesh->getPlaneVertex(_ptGridSize, _ptPos, _ptSize, i, &prNewVertex, &prTexVertex))
 						{
-							Real rSpring = 1.0f;
-							if (_pSystem->getMouseWindow() == this && (_pSystem->getCtrlKeyState() & CK_LButton))
+							Real rSpring = 0.9f;
+							if (isDraging)
 							{
-								//_pSystem->getDragWindow
-								rSpring = 0.2f;
+								const Point& ptWndMousePos = _pSystem->getWindowMousePos();
+								rSpring = (sqrt(fabs(ptWndMousePos.x - prNewVertex.x) / _ptSize.x + fabs(ptWndMousePos.y - prNewVertex.y) / _ptSize.y) / 2);
+								rSpring *= rSpring;
 							}
 
 							PointReal prVertex;

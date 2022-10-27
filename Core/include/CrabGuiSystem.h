@@ -168,6 +168,10 @@ namespace CrabGui
 
 	public:	// 属性相关
 
+		/// 鼠标拾取窗体区域坐标
+		const Point&	getWindowMousePos() const;
+
+		/// 获取鼠标屏幕坐标
 		const Point&	getScreenMousePos() const;
 
 		/// 获取CTRL/ALT/SHIFT/LBUTTON按键状态

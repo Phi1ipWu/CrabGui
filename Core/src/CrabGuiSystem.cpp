@@ -960,7 +960,14 @@ namespace CrabGui
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// 属性相关
 
+	// 鼠标拾取窗体区域坐标
+	const Point& System::getWindowMousePos() const
+	{
+		return _ptWndMousePos;
+	}
 
+
+	// 获取鼠标屏幕坐标
 	const Point& System::getScreenMousePos() const
 	{
 		return _ptScrMousePos;
