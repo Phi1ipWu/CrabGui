@@ -33,7 +33,7 @@ namespace CrabGui
 	{
 		CrabDeleteArray(_pVertices);
 		CrabDeleteArray(_pTexVertices);
-		CrabDeleteArray(_pTexVertices);
+		CrabDeleteArray(_pTriangles);
 	}
 
 
