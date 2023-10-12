@@ -29,13 +29,16 @@ namespace CrabGui
 			//_testRBTree();
 			//return True;
 
-			_testConvertPNG();
+			//_testConvertPNG();
 			//return True;
 			
 			//_testBatchConvertJPG();
 			//return True;
 
 			//_testClipPNG();
+			//return True;
+
+			_testPixelReplace();
 			//return True;
 		}
 
@@ -538,6 +541,35 @@ namespace CrabGui
 			strFileName.format("./FontTexture_16_%d.png", j);
 			pTexture->saveToFile(strFileName.getStrPtr());
 		}
+	}
+
+
+	void SampleFirstWindow::_testPixelReplace()
+	{
+		Char szSrcFile[] = "C:\\Users\\Philip\\Desktop\\v560.PNG";
+		Char szDstFile[] = "C:\\Users\\Philip\\Desktop\\v560_new.PNG";
+		Color cSrc = Color_ARGB(255, 235, 236, 236);
+		Color cDst = 0xFFFFFFFF;
+
+		Image* pImage = _pSystem->acquireImage(szSrcFile);
+		if (!pImage)
+			return;
+
+		for (Int i = 0; i < pImage->getSize().getArea(); ++i)
+		{
+			Point pt(i % pImage->getSize().x, i / pImage->getSize().x);
+			Color c = pImage->getColor(pt);
+			Color r = (c % 0xFFFFFF >> 16);
+			Color g = (c % 0xFFFF >> 8);
+			Color b = (c % 0xFF);
+			if (c == cSrc || (r + g + b) / 3 >= 228)
+			{
+				pImage->setColor(pt, cDst);
+			}
+		}
+
+		pImage->saveToFile(IFF_PNG, szDstFile, 0, 0);
+		_pSystem->releaseImage(pImage);
 	}
 
 }	// end namespace

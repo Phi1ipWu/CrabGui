@@ -60,6 +60,8 @@ namespace CrabGui
 	/// 简单算法宏
 	#define Min(a, b)	((a) < (b) ? (a) : (b))
 	#define Max(a, b)	((a) > (b) ? (a) : (b))
+	#define Color_RGB(r, g, b)		((UInt8)(r) << 16 | (UInt8)(g) << 8 | (UInt8)(b))
+	#define Color_ARGB(a, r, g, b)	((UInt8)(a) << 24 | Color_RGB(r, g, b))
 
 
 	/// 鼠标按键
