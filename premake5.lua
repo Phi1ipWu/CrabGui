@@ -36,6 +36,8 @@ workspace "CrabGui"
         os.remove("Output/CrabGuiSample_FirstWindow*.*")
     end
 
+    zip.extract("./_Depend.zip", ".")
+
 -------------------------------------------------------------------------------
 project "CrabGui_Core"
     kind "SharedLib"
