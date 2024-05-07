@@ -260,7 +260,7 @@ namespace CrabGui
 							if (isDraging)
 							{
 								const Point& ptWndMousePos = _pSystem->getWindowMousePos();
-								rSpring = 1.0f - ((fabs(ptWndMousePos.x + _ptPos.x - prNewVertex.x) / _ptSize.x + fabs(ptWndMousePos.y + _ptPos.y - prNewVertex.y) / _ptSize.y) / 2) * 0.8f;
+								rSpring = 1.0f - (CrabGui::Real)((fabs(ptWndMousePos.x + _ptPos.x - prNewVertex.x) / _ptSize.x + fabs(ptWndMousePos.y + _ptPos.y - prNewVertex.y) / _ptSize.y) / 2) * 0.8f;
 								//rSpring *= rSpring;
 							}
 
